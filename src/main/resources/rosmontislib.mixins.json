@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "com.freefish.rosmontislib.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "com.freefish.rosmontislib.mixin.RLMixinPlugin",
+  "refmap": "rosmontislib.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "accessor.BlendModeAccessor",
+    "accessor.ShaderInstanceAccessor",
+    "accessor.ParticleEngineAccessor",
+    "ForgeParticleEngineMixin",
+    "GLStateManagerMixin",
+    "GameRendererMixin",
+    "MainTargetMixin",
+    "PostChainMixin",
+    "PostPassMixin",
+    "RenderTargetMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
