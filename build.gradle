@@ -4,10 +4,10 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
 
-version = mod_version
+version = mod_version + "-SNAPSHOT"
 group = mod_group_id
 
 base {
@@ -39,7 +39,7 @@ minecraft {
         }
 
         client {
-            property 'mixin.env.disableRefMap', 'true'
+            properties 'mixin.env.remapRefMap': 'true'
             property 'forge.enabledGameTestNamespaces', mod_id
 
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -48,7 +48,7 @@ minecraft {
         }
 
         server {
-            property 'mixin.env.disableRefMap', 'true'
+            properties 'mixin.env.remapRefMap': 'true'
             property 'forge.enabledGameTestNamespaces', mod_id
             args '--nogui'
 
@@ -64,7 +64,7 @@ minecraft {
         data {
             workingDirectory project.file('run-data')
 
-            property 'mixin.env.disableRefMap', 'true'
+            properties 'mixin.env.remapRefMap': 'true'
 
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -98,6 +98,10 @@ repositories {
     }
     maven { url = 'https://maven.parchmentmc.org' }
     maven { url = 'https://repo.spongepowered.org/maven' }
+    maven {
+        //maven for all github project releases
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -154,11 +158,11 @@ publishing {
     }
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/FishOfFreedom/TorchesBecomeSunlight"
+            allowInsecureProtocol = true
+            url = "http://localhost:8081/repository/arknightsmod/"
             credentials {
-                username = System.getenv("GITHUB_USERNAME")
-                password = System.getenv("GITHUB_TOKEN")
+                username = System.getenv("MAVENNAME")
+                password = System.getenv("PASSWORD")
             }
         }
     }
