@@ -1,7 +1,5 @@
 package com.freefish.rosmontislib.gui.guiproxy;
 
-import com.freefish.rosmontislib.gui.widget.scene.RLScene;
-
 public interface IStateProxy extends IOpenState{
     RLScene getState();
 

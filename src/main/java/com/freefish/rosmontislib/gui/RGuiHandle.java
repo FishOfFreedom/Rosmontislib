@@ -1,6 +1,6 @@
 package com.freefish.rosmontislib.gui;
 
-import com.freefish.rosmontislib.gui.widget.scene.RLScene;
+import com.freefish.rosmontislib.gui.guiproxy.RLScene;
 import com.google.common.collect.HashBiMap;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;

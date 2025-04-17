@@ -19,12 +19,39 @@ public class RPagePanel extends RLPanel {
 
     public void scrollToList(int count){
         getChildren().clear();
+        int size = list.size();
+
+        if(size <=maxLen) {
+            count = 0;
+        }else {
+            count = Math.min(count,size-maxLen);
+        }
+
         if(!list.isEmpty()) {
-            for(int i = 0;i+count<list.size()&&i<maxLen;i++){
-                addChildren(list.get(i+count));
+            for(int i = 0; i+count< size &&i<maxLen; i++){
+                RLNode rlNode = list.get(i + count);
+                rlNode.setName(Component.literal(String.valueOf(i + count)));
+                addChildren(rlNode);
             }
-            for(int i = 0;i+count<list.size();i++){
-                list.get(i).setName(Component.literal(String.valueOf(i)));
+        }
+    }
+
+    public void scrollToList(float count1){
+        getChildren().clear();
+        int size = list.size();
+
+        int count;
+        if(size <=maxLen) {
+            count = 0;
+        }else {
+            count = (int)((size -maxLen)*count1);
+        }
+
+        if(!list.isEmpty()) {
+            for(int i = 0; i+count< size &&i<maxLen; i++){
+                RLNode rlNode = list.get(i + count);
+                rlNode.setName(Component.literal(String.valueOf(i + count)));
+                addChildren(rlNode);
             }
         }
     }
@@ -52,12 +79,14 @@ public class RPagePanel extends RLPanel {
 
     public void add(RLNode button){
         list.add(button);
-        scrollToList(0);
+        scrollToList(list.size()-maxLen);
     }
 
     public void remove(RLNode button){
+        int i = list.indexOf(button)+1;
+
         list.remove(button);
-        scrollToList(0);
+        scrollToList(Math.max(0,i-1));
     }
 
     public List<RLNode> getPageList() {

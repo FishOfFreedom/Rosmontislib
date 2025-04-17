@@ -13,7 +13,8 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientEventHandle {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event){
-
-        MenuScreens.register(MenuHandle.ENTITY_SPAWNER_MENU.get(), EntitySpawnerScreen::new);
+        if(RosmontisLib.isDevEnv()) {
+            MenuScreens.register(MenuHandle.ENTITY_SPAWNER_MENU.get(), EntitySpawnerScreen::new);
+        }
     }
 }

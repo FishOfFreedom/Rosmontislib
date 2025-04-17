@@ -1,5 +1,6 @@
 package com.freefish.rosmontislib.client.particle.advance.base.particle;
 
+import com.freefish.rosmontislib.client.particle.advance.AdvancedRLParticleBase;
 import com.freefish.rosmontislib.client.particle.advance.RLParticleRenderType;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticle;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticleEmitter;
@@ -181,9 +182,9 @@ public class TileParticle implements IParticle {
         update();
         updateOrigin();
 
-        //if (config.trails.isEnable() && emitter instanceof ParticleEmitter particleEmitter) {
-        //    config.trails.setup(particleEmitter, this);
-        //}
+        if (config.trails.isEnable() && emitter instanceof RLParticle particleEmitter) {
+            config.trails.setup(particleEmitter, this);
+        }
     }
 
     @Override

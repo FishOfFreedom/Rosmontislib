@@ -1,6 +1,6 @@
 package com.freefish.rosmontislib.gui.widget.scene;
 
-import com.freefish.rosmontislib.gui.widget.property.RIntProperty;
+import com.freefish.rosmontislib.gui.guiproxy.RLScene;
 import com.freefish.rosmontislib.gui.widget.scene.input.MouseButton;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 import static net.minecraft.client.gui.components.AbstractWidget.WIDGETS_LOCATION;
@@ -23,14 +24,22 @@ public abstract class RLNode {
     private float g = 1;
     private float b = 1;
     private float a = 1;
+
     private boolean isOver = false;
+    private boolean isVisible = true;
+    private boolean isFocus;
+
     private RLNode parent;
+
+    private RLScene gui;
+
     private RBackGround backGround;
+
     private Consumer<Boolean> mouseActionEvent;
     private Runnable tickEvent;
-    private boolean isVisible = true;
     private Component component = Component.literal("");
     private final static Font font = Minecraft.getInstance().font;
+
 
     public float getA() {
         return a;
@@ -65,7 +74,7 @@ public abstract class RLNode {
     }
 
 
-    public RLNode(float xSize,float ySize){
+    public RLNode(float xSize, float ySize){
         this.xSize = xSize;
         this.ySize = ySize;
     }
@@ -101,6 +110,7 @@ public abstract class RLNode {
         this.interval = interval;
     }
 
+
     public void setParent(RLNode parent) {
         this.parent = parent;
     }
@@ -125,24 +135,12 @@ public abstract class RLNode {
         return layoutX+ getInterval();
     }
 
-    public int getTranslateX() {
-        return (nodeTransformation == null)
-                ? DEFAULT_TRANSLATE
-                : nodeTransformation.getTranslateX();
-    }
-
     public void setLayoutX(int layoutX) {
         this.layoutX = layoutX;
     }
 
     public int getLayoutY() {
         return layoutY+ getInterval();
-    }
-
-    public int getTranslateY() {
-        return (nodeTransformation == null)
-                ? DEFAULT_TRANSLATE
-                : nodeTransformation.getTranslateY();
     }
 
     public void setLayoutY(int layoutY) {
@@ -205,15 +203,27 @@ public abstract class RLNode {
         return false;
     }
 
-    public boolean mouseClicked(double pMouseX, double pMouseY, MouseButton pButton) {
+    public boolean mouseClicked(double mouseX, double mouseY, MouseButton button) {
         return false;
     }
 
-    public boolean mouseReleased(double pMouseX, double pMouseY, MouseButton pButton) {
+    public boolean mouseReleased(double mouseX, double mouseY, MouseButton button) {
         return false;
     }
 
-    public final boolean isMouseOver() {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        return false;
+    }
+
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        return false;
+    }
+
+    public boolean charTyped(char codePoint, int modifiers) {
+        return false;
+    }
+
+    public boolean isMouseOver() {
         return isOver;
     }
 
@@ -223,6 +233,32 @@ public abstract class RLNode {
 
     public void updateMouseOver(int mouseX, int mouseY) {
         setOver(checkMouseOver(mouseX, mouseY));
+    }
+
+    public boolean isFocus() {
+        return isFocus;
+    }
+
+    public void setFocus(boolean focus) {
+        if (gui != null) {
+            RLNode lastFocus = gui.lastFocus;
+            if (!focus) {
+                isFocus = false;
+                if (gui.lastFocus == this) {
+                    gui.lastFocus = null;
+                }
+                onFocusChanged(lastFocus, gui.lastFocus);
+            } else {
+                if (gui.switchFocus(this)) {
+                    isFocus = true;
+                    onFocusChanged(lastFocus, gui.lastFocus);
+                }
+            }
+        }
+    }
+
+    public void onFocusChanged(@Nullable RLNode lastFocus, RLNode focus) {
+
     }
 
     public void updateGui(int mouseX, int mouseY, float partialTicks) {
@@ -244,6 +280,14 @@ public abstract class RLNode {
 
     public void setOnMouseEnter(Consumer<Boolean> mouseActionEvent){
         this.mouseActionEvent = mouseActionEvent;
+    }
+
+    public RLScene getGui() {
+        return gui;
+    }
+
+    public void setGui(RLScene gui) {
+        this.gui = gui;
     }
 
     public float getxSize() {
@@ -283,47 +327,5 @@ public abstract class RLNode {
 
     public void getName(Component component) {
         this.component = component;
-    }
-
-    //animation
-    private NodeTransformation nodeTransformation;
-
-    private NodeTransformation getNodeTransformation() {
-        if (nodeTransformation == null) {
-            nodeTransformation = new NodeTransformation();
-        }
-
-        return nodeTransformation;
-    }
-
-    private static final int DEFAULT_TRANSLATE = 0;
-
-    private class NodeTransformation{
-        private RIntProperty translateX;
-        private RIntProperty translateY;
-
-        public int getTranslateX() {
-            return (translateX == null) ? DEFAULT_TRANSLATE
-                    : translateX.get();
-        }
-
-        public RIntProperty translateXProperty() {
-            if (translateX == null) {
-                translateX = new RIntProperty();
-            }
-            return translateX;
-        }
-
-        public int getTranslateY() {
-            return (translateY == null) ? DEFAULT_TRANSLATE
-                    : translateY.get();
-        }
-
-        public RIntProperty translateYProperty() {
-            if (translateY == null) {
-                translateY = new RIntProperty();
-            }
-            return translateY;
-        }
     }
 }

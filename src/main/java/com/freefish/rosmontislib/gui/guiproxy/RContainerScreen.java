@@ -1,6 +1,5 @@
 package com.freefish.rosmontislib.gui.guiproxy;
 
-import com.freefish.rosmontislib.gui.widget.scene.RLScene;
 import com.freefish.rosmontislib.gui.widget.scene.input.MouseButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -52,20 +51,26 @@ public class RContainerScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == 256) {
-            return super.keyPressed(keyCode, scanCode, modifiers);
+        if(state.keyPressed(keyCode, scanCode, modifiers)){
+            return false;
         }
-        return false;
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        return false;
+        if(state.keyReleased(keyCode, scanCode, modifiers)){
+            return true;
+        }
+        return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean charTyped(char keyChar, int modifiers) {
-        return false;
+        if(state.charTyped(keyChar, modifiers)){
+            return true;
+        }
+        return super.charTyped(keyChar, modifiers);
     }
 
     @Override

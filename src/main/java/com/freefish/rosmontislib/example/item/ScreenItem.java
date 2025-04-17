@@ -2,13 +2,16 @@ package com.freefish.rosmontislib.example.item;
 
 import com.freefish.rosmontislib.RosmontisLib;
 import com.freefish.rosmontislib.client.particle.advance.base.particle.RLParticle;
-import com.freefish.rosmontislib.client.particle.advance.base.particle.RLParticleConfig;
+import com.freefish.rosmontislib.client.particle.advance.data.VelocityOverLifetimeSetting;
+import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction;
+import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction3;
+import com.freefish.rosmontislib.client.particle.advance.data.shape.Circle;
 import com.freefish.rosmontislib.gui.RGuiHandle;
 import com.freefish.rosmontislib.gui.widget.panel.RHBox;
 import com.freefish.rosmontislib.gui.widget.panel.RVBox;
 import com.freefish.rosmontislib.gui.widget.scene.RButton;
 import com.freefish.rosmontislib.gui.widget.scene.RImageView;
-import com.freefish.rosmontislib.gui.widget.scene.RLScene;
+import com.freefish.rosmontislib.gui.guiproxy.RLScene;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -59,7 +62,16 @@ public class ScreenItem extends Item {
                 RGuiHandle.INSTANCE.openGui(rlScene);
             }
             RLParticle rlParticle = new RLParticle();
-            rlParticle.config.getRenderer().setBloomEffect(true);
+            rlParticle.config.getShape().setShape(new Circle());
+            rlParticle.config.getVelocityOverLifetime().setEnable(true);
+            rlParticle.config.trails.setEnable(true);
+            rlParticle.config.getVelocityOverLifetime().setOrbitalMode(VelocityOverLifetimeSetting.OrbitalMode.AngularVelocity);
+            rlParticle.config.getVelocityOverLifetime().setOrbital(new NumberFunction3(
+                    NumberFunction.constant(1),
+                    NumberFunction.constant(1),
+                    NumberFunction.constant(1)
+            ));
+
             rlParticle.emmit(null);
         }
         return super.use(world, player, hand);

@@ -5,7 +5,7 @@ import com.freefish.rosmontislib.gui.widget.panel.RLPanel;
 import com.freefish.rosmontislib.gui.widget.panel.RPagePanel;
 import com.freefish.rosmontislib.gui.widget.scene.RButton;
 import com.freefish.rosmontislib.gui.widget.scene.RInsideButton;
-import com.freefish.rosmontislib.gui.widget.scene.RLScene;
+import com.freefish.rosmontislib.gui.guiproxy.RLScene;
 import com.freefish.rosmontislib.gui.widget.scene.RScrollBar;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;

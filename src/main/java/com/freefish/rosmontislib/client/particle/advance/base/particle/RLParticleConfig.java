@@ -65,6 +65,8 @@ public class RLParticleConfig {
 
     protected final UVAnimationSetting uvAnimation = new UVAnimationSetting();
 
+    public final TrailsSetting trails = new TrailsSetting();
+
     public Space getSimulationSpace() {
         return simulationSpace;
     }

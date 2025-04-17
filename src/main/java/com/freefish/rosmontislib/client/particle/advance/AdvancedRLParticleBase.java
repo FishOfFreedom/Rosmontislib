@@ -1,6 +1,7 @@
 package com.freefish.rosmontislib.client.particle.advance;
 
 import com.freefish.rosmontislib.client.particle.advance.base.FXObject;
+import com.freefish.rosmontislib.client.particle.advance.base.IParticle;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticleEmitter;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
