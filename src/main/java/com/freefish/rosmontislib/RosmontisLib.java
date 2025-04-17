@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
 
@@ -34,13 +35,13 @@ public class RosmontisLib
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        //example
-        ItemHandle.ITEMS.register(bus);
-        ItemHandle.TABS.register(bus);
-        MenuHandle.MENUS.register(bus);
-        BlockEntityHandle.TILES.register(bus);
-        BlockHandle.BLOCKS.register(bus);
-
+        if(isDevEnv()){
+            ItemHandle.ITEMS.register(bus);
+            ItemHandle.TABS.register(bus);
+            MenuHandle.MENUS.register(bus);
+            BlockEntityHandle.TILES.register(bus);
+            BlockHandle.BLOCKS.register(bus);
+        }
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
@@ -72,5 +73,9 @@ public class RosmontisLib
 
     public static boolean isUsingShaderPack() {
         return ForgeOculusHandle.INSTANCE!=null && ForgeOculusHandle.INSTANCE.underShaderPack();
+    }
+
+    public static boolean isDevEnv() {
+        return !FMLLoader.isProduction();
     }
 }
