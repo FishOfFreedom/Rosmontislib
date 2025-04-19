@@ -1,6 +1,6 @@
 package com.freefish.rosmontislib.gui.widget.scene;
 
-import com.freefish.rosemarylib.gui.scene.input.MouseButton;
+import com.freefish.rosmontislib.gui.widget.scene.input.MouseButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

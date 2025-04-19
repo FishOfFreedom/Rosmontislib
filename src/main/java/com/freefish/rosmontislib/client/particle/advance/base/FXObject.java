@@ -54,17 +54,17 @@ public class FXObject extends Particle implements IFXObject {
 
     @Override
     public void setVisible(boolean visible) {
-
+        this.visible = visible;
     }
 
     @Override
     public void setEffect(IEffect effect) {
-
+        this.effect = effect;
     }
 
     @Override
     public IEffect getEffect() {
-        return null;
+        return effect;
     }
 
     @Override

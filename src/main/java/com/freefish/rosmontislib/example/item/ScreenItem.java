@@ -3,9 +3,14 @@ package com.freefish.rosmontislib.example.item;
 import com.freefish.rosmontislib.RosmontisLib;
 import com.freefish.rosmontislib.client.particle.advance.base.particle.RLParticle;
 import com.freefish.rosmontislib.client.particle.advance.data.VelocityOverLifetimeSetting;
+import com.freefish.rosmontislib.client.particle.advance.data.material.CustomShaderMaterial;
+import com.freefish.rosmontislib.client.particle.advance.data.material.MaterialHandle;
 import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction;
 import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction3;
+import com.freefish.rosmontislib.client.particle.advance.data.number.color.Gradient;
 import com.freefish.rosmontislib.client.particle.advance.data.shape.Circle;
+import com.freefish.rosmontislib.client.particle.advance.effect.EntityEffect;
+import com.freefish.rosmontislib.client.utils.GradientColor;
 import com.freefish.rosmontislib.gui.RGuiHandle;
 import com.freefish.rosmontislib.gui.widget.panel.RHBox;
 import com.freefish.rosmontislib.gui.widget.panel.RVBox;
@@ -52,7 +57,6 @@ public class ScreenItem extends Item {
 
                 button.setOnAction((isPress -> {
                     if (isPress) {
-                        System.out.println(12);
                     }
                 }));
 
@@ -63,8 +67,14 @@ public class ScreenItem extends Item {
             }
             RLParticle rlParticle = new RLParticle();
             rlParticle.config.getShape().setShape(new Circle());
+            rlParticle.config.getMaterial().setMaterial(MaterialHandle.GLOW);
+            rlParticle.config.getColorOverLifetime().setEnable(true);
+            GradientColor gradientColor = new GradientColor(0X000000FF, 0XFF0000FF, 0X000000FF);
+            rlParticle.config.getColorOverLifetime().setColor(new Gradient(gradientColor));
+
             rlParticle.config.getVelocityOverLifetime().setEnable(true);
             rlParticle.config.trails.setEnable(true);
+            rlParticle.config.trails.config.material.setMaterial(MaterialHandle.GLOW);
             rlParticle.config.getVelocityOverLifetime().setOrbitalMode(VelocityOverLifetimeSetting.OrbitalMode.AngularVelocity);
             rlParticle.config.getVelocityOverLifetime().setOrbital(new NumberFunction3(
                     NumberFunction.constant(1),
@@ -72,7 +82,7 @@ public class ScreenItem extends Item {
                     NumberFunction.constant(1)
             ));
 
-            rlParticle.emmit(null);
+            rlParticle.emmit(new EntityEffect(world,player));
         }
         return super.use(world, player, hand);
     }

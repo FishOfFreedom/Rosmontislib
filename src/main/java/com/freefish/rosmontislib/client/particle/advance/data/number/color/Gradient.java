@@ -23,6 +23,10 @@ public class Gradient implements NumberFunction {
         this.gradientColor = new GradientColor(color, color);
     }
 
+    public Gradient(GradientColor gradientColor) {
+        this.gradientColor = gradientColor;
+    }
+
     @Override
     public Number get(RandomSource randomSource, float t) {
         return gradientColor.getColor(t);

@@ -466,6 +466,10 @@ u     */
             setLocalPos(localX + moveLocal.x, localY + moveLocal.y, localZ + moveLocal.z, false);
         }
 
+        if(config.attractOverLifetime.isEnable()){
+            config.attractOverLifetime.getVelocityAddition(this);
+        }
+
         // update internal velocity
         if (!config.physics.isEnable()) return;
         if (config.physics.isHasCollision() && !this.collided) {

@@ -5,6 +5,7 @@ import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunct
 import com.freefish.rosmontislib.client.particle.advance.data.number.color.Gradient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Vector4f;
 
 /**
  * @author KilaBash
@@ -14,10 +15,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ColorOverLifetimeSetting extends ToggleGroup {
 
+    public void setColor(NumberFunction color) {
+        this.color = color;
+    }
+
     protected NumberFunction color = new Gradient();
 
-    public int getColor(IParticle particle, float partialTicks) {
-        return color.get(particle.getT(partialTicks), () -> particle.getMemRandom(this)).intValue();
+    public Vector4f getColor(IParticle particle, float partialTicks) {
+        var c =  color.get(particle.getT(partialTicks), () -> particle.getMemRandom(this)).intValue();
+        return new Vector4f((c >> 16 & 0xff) / 255f, (c >> 8 & 0xff) / 255f, (c & 0xff) / 255f, (c >> 24 & 0xff) / 255f);
     }
 
 }

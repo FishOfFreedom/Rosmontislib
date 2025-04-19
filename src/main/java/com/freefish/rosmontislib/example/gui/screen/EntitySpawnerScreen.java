@@ -35,7 +35,7 @@ public class EntitySpawnerScreen extends RContainerScreen<EntitySpawnerMenu> {
             rPagePanel.add(createButton(rPagePanel));
         }
         //control wave list
-        RScrollBar rScrollBar = new RScrollBar(4);
+        RScrollBar rScrollBar = new RScrollBar();
         rScrollBar.setPos(0,0,RScrollBar.WIDTH,60);
 
         rScrollBar.setResponder((i)->{

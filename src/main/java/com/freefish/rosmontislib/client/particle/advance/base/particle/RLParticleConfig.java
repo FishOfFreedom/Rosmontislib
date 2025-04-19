@@ -49,6 +49,8 @@ public class RLParticleConfig {
 
     protected final VelocityOverLifetimeSetting velocityOverLifetime = new VelocityOverLifetimeSetting();
 
+    protected final AttractOverLifetimeSetting attractOverLifetime = new AttractOverLifetimeSetting();
+
     protected final InheritVelocitySetting inheritVelocity = new InheritVelocitySetting();
 
     protected final LifetimeByEmitterSpeedSetting lifetimeByEmitterSpeed = new LifetimeByEmitterSpeedSetting();
@@ -131,6 +133,10 @@ public class RLParticleConfig {
 
     public VelocityOverLifetimeSetting getVelocityOverLifetime() {
         return velocityOverLifetime;
+    }
+
+    public AttractOverLifetimeSetting getAttractOverLifetime() {
+        return attractOverLifetime;
     }
 
     public InheritVelocitySetting getInheritVelocity() {
