@@ -19,6 +19,62 @@ public class TrailsSetting extends ToggleGroup{
 
     protected NumberFunction lifetime = NumberFunction.constant(1);
 
+    public NumberFunction getColorOverLifetime() {
+        return colorOverLifetime;
+    }
+
+    public void setColorOverLifetime(NumberFunction colorOverLifetime) {
+        this.colorOverLifetime = colorOverLifetime;
+    }
+
+    public boolean isInheritParticleColor() {
+        return inheritParticleColor;
+    }
+
+    public void setInheritParticleColor(boolean inheritParticleColor) {
+        this.inheritParticleColor = inheritParticleColor;
+    }
+
+    public boolean isSizeAffectsLifetime() {
+        return sizeAffectsLifetime;
+    }
+
+    public void setSizeAffectsLifetime(boolean sizeAffectsLifetime) {
+        this.sizeAffectsLifetime = sizeAffectsLifetime;
+    }
+
+    public boolean isSizeAffectsWidth() {
+        return sizeAffectsWidth;
+    }
+
+    public void setSizeAffectsWidth(boolean sizeAffectsWidth) {
+        this.sizeAffectsWidth = sizeAffectsWidth;
+    }
+
+    public boolean isDieWithParticles() {
+        return dieWithParticles;
+    }
+
+    public void setDieWithParticles(boolean dieWithParticles) {
+        this.dieWithParticles = dieWithParticles;
+    }
+
+    public NumberFunction getLifetime() {
+        return lifetime;
+    }
+
+    public void setLifetime(NumberFunction lifetime) {
+        this.lifetime = lifetime;
+    }
+
+    public float getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(float ratio) {
+        this.ratio = ratio;
+    }
+
     protected boolean dieWithParticles = false;
 
     protected boolean sizeAffectsWidth = true;

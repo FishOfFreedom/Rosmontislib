@@ -79,6 +79,10 @@ public class RLParticleConfig {
         return lights;
     }
 
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -89,6 +93,38 @@ public class RLParticleConfig {
 
     public NumberFunction getStartDelay() {
         return startDelay;
+    }
+
+    public void setLooping(boolean looping) {
+        this.looping = looping;
+    }
+
+    public void setStartDelay(NumberFunction startDelay) {
+        this.startDelay = startDelay;
+    }
+
+    public void setStartLifetime(NumberFunction startLifetime) {
+        this.startLifetime = startLifetime;
+    }
+
+    public void setStartSpeed(NumberFunction startSpeed) {
+        this.startSpeed = startSpeed;
+    }
+
+    public void setStartSize(NumberFunction3 startSize) {
+        this.startSize = startSize;
+    }
+
+    public void setStartRotation(NumberFunction3 startRotation) {
+        this.startRotation = startRotation;
+    }
+
+    public void setStartColor(NumberFunction startColor) {
+        this.startColor = startColor;
+    }
+
+    public void setMaxParticles(int maxParticles) {
+        this.maxParticles = maxParticles;
     }
 
     public NumberFunction getStartLifetime() {
@@ -123,7 +159,7 @@ public class RLParticleConfig {
         return shape;
     }
 
-    public RendererSetting getRenderer() {
+    public RendererSetting.Particle getRenderer() {
         return renderer;
     }
 

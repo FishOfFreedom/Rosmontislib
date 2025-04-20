@@ -15,6 +15,10 @@ public class ToggleGroup{
         this.enable = enable;
     }
 
+    public void open() {
+        this.enable = true;
+    }
+
     protected boolean enable;
 
 }

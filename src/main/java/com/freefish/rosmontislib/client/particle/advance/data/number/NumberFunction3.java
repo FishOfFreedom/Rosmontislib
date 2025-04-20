@@ -20,10 +20,22 @@ public class NumberFunction3 {
         this.z = z;
     }
 
+    public NumberFunction3(NumberFunction x) {
+        this.x = x;
+        this.y = x;
+        this.z = x;
+    }
+
     public NumberFunction3(Number x, Number y, Number z) {
         this.x = NumberFunction.constant(x);
         this.y = NumberFunction.constant(y);
         this.z = NumberFunction.constant(z);
+    }
+
+    public NumberFunction3(Number x) {
+        this.x = NumberFunction.constant(x);
+        this.y = NumberFunction.constant(x);
+        this.z = NumberFunction.constant(x);
     }
 
     public Vector3f get(RandomSource randomSource, float t) {

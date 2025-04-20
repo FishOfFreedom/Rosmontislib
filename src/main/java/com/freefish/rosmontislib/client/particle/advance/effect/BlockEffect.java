@@ -1,6 +1,7 @@
 package com.freefish.rosmontislib.client.particle.advance.effect;
 
 import com.freefish.rosmontislib.client.particle.advance.base.IFXObject;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,13 +18,12 @@ import java.util.Map;
  * @implNote EntityEffect
  */
 @OnlyIn(Dist.CLIENT)
-public class BoneEffect extends FXEffect {
-    public static Map<Entity, List<BoneEffect>> CACHE = new HashMap<>();
-    public final Entity entity;
+public class BlockEffect extends FXEffect {
+    public final BlockPos pos;
 
-    public BoneEffect(Level level, Entity entity) {
-        super(level);
-        this.entity = entity;
+    public BlockEffect(Level level, BlockPos pos) {
+        super( level);
+        this.pos = pos;
     }
 
     @Override
@@ -31,13 +31,6 @@ public class BoneEffect extends FXEffect {
     }
 
     @Override
-    public void updateFXObjectFrame(IFXObject fxObject, float partialTicks) {
-        var position = entity.getPosition(partialTicks);
-        fxObject.updatePos(new Vector3f((float) (position.x + offset.x), (float) (position.y + offset.y), (float) (position.z + offset.z)));
-    }
-
-    @Override
     public void start() {
-
     }
 }

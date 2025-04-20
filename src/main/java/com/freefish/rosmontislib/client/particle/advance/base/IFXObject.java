@@ -1,5 +1,6 @@
 package com.freefish.rosmontislib.client.particle.advance.base;
 
+import com.freefish.rosmontislib.client.particle.advance.effect.BlockEffect;
 import com.freefish.rosmontislib.client.particle.advance.effect.IEffect;
 import com.freefish.rosmontislib.client.utils.ISceneObject;
 import net.minecraft.client.Minecraft;
@@ -59,6 +60,9 @@ public interface IFXObject extends ISceneObject {
 
     default void emmit(IEffect effect, @Nullable Vector3f position, @Nullable Quaternionf rotation, @Nullable Vector3f scale) {
         setEffect(effect);
+        if(effect instanceof BlockEffect blockEffect){
+            updatePos(new Vector3f(blockEffect.pos.getX()+0.5f,blockEffect.pos.getY()+0.5f,blockEffect.pos.getZ()+0.5f));
+        }
         if (position != null) {
             updatePos(position);
         }

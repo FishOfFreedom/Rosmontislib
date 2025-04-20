@@ -16,6 +16,10 @@ public class EmissionSetting {
         Random
     }
 
+    public void setEmissionRate(NumberFunction emissionRate) {
+        this.emissionRate = emissionRate;
+    }
+
     protected NumberFunction emissionRate = NumberFunction.constant(0.5f);
 
     protected Mode emissionMode = Mode.Exacting;
@@ -57,6 +61,10 @@ public class EmissionSetting {
 
     public List<Burst> getBursts() {
         return bursts;
+    }
+
+    public void addBursts(Burst burst) {
+        bursts.add(burst);
     }
 
     public void setBursts(List<Burst> bursts) {

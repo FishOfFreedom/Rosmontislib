@@ -2,6 +2,7 @@ package com.freefish.rosmontislib.example.block.blockentity;
 
 import com.freefish.rosmontislib.example.gui.screen.EntitySpawnerMenu;
 import com.freefish.rosmontislib.example.init.BlockEntityHandle;
+import com.freefish.rosmontislib.example.syncdata.SyncData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -33,6 +34,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements MenuProvide
     public Wave currentWave;
     public int tickCount = -1;
     public boolean isStart;
+    public SyncData syncData= new SyncData();
 
     public EntitySpawnerBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityHandle.ENTITY_SPAWNER_ENTITY.get(), pos, state);
@@ -46,6 +48,8 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements MenuProvide
             uuidListTag.put("wavedata" + i, waveList.get(i).save());
         }
         tag.put("wavedata", uuidListTag);
+
+        tag.put("syyy",getSyncData().serializeNBT());
     }
 
     @Override
@@ -55,6 +59,18 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements MenuProvide
         for (String key : wavedata.getAllKeys()) {
             waveList.add(Wave.load(wavedata.getCompound(key)));
         }
+        SyncData syncData1 = new SyncData();
+        CompoundTag sy = tag.getCompound("syyy");
+        syncData1.deserializeNBT(sy);
+        setSyncData(syncData1);
+    }
+
+    public SyncData getSyncData() {
+        return syncData;
+    }
+
+    public void setSyncData(SyncData syncData) {
+        this.syncData=syncData;
     }
 
     public void startSpawning(SummonType summonType) {

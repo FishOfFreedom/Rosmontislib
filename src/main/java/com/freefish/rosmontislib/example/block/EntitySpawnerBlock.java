@@ -2,7 +2,9 @@ package com.freefish.rosmontislib.example.block;
 
 import com.freefish.rosmontislib.example.block.blockentity.EntitySpawnerBlockEntity;
 import com.freefish.rosmontislib.example.init.BlockEntityHandle;
+import com.freefish.rosmontislib.example.syncdata.SyncData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -44,10 +46,14 @@ public class EntitySpawnerBlock extends BaseEntityBlock {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof EntitySpawnerBlockEntity) {
+                SyncData syncData = ((EntitySpawnerBlockEntity)entity).getSyncData();
+                syncData.a+=1;
+                System.out.println(syncData);
                 NetworkHooks.openScreen(((ServerPlayer)pPlayer), (EntitySpawnerBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
+        }else {
         }
 
         return InteractionResult.sidedSuccess(pLevel.isClientSide());

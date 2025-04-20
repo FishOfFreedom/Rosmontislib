@@ -7,6 +7,7 @@ import com.freefish.rosmontislib.example.init.BlockEntityHandle;
 import com.freefish.rosmontislib.example.init.BlockHandle;
 import com.freefish.rosmontislib.example.init.ItemHandle;
 import com.freefish.rosmontislib.example.init.MenuHandle;
+import com.freefish.rosmontislib.sync.TypedPayloadRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,6 +50,9 @@ public class RosmontisLib
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+
+        TypedPayloadRegistries.init();
+        TypedPayloadRegistries.postInit();
         event.enqueueWork(()->{
             ServerNetwork.initNetwork();
         });
