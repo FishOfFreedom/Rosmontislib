@@ -35,6 +35,10 @@ public class RLParticleConfig {
 
     protected int maxParticles = 2000;
 
+    protected boolean parallelUpdate = false;
+
+    protected boolean parallelRendering = false;
+
     protected EmissionSetting emission = new EmissionSetting();
 
     protected ShapeSetting shape = new ShapeSetting();
@@ -213,6 +217,21 @@ public class RLParticleConfig {
         return material;
     }
 
+    public boolean isParallelUpdate() {
+        return parallelUpdate;
+    }
+
+    public void setParallelUpdate(boolean parallelUpdate) {
+        this.parallelUpdate = parallelUpdate;
+    }
+
+    public boolean isParallelRendering() {
+        return parallelRendering;
+    }
+
+    public void setParallelRendering(boolean parallelRendering) {
+        this.parallelRendering = parallelRendering;
+    }
 
     // runtime
     public final RLParticleRenderType particleRenderType = new RenderType();
@@ -259,7 +278,7 @@ public class RLParticleConfig {
 
         @Override
         public boolean isParallel() {
-            return false;
+            return isParallelRendering();
         }
     }
 }

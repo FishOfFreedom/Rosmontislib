@@ -203,7 +203,7 @@ public class RLTrailConfig {
 
         @Override
         public boolean isParallel() {
-            return false;
+            return isParallelRendering();
         }
 
     }

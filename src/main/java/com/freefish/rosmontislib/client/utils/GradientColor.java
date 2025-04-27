@@ -58,6 +58,19 @@ public class GradientColor {
         }
     }
 
+    public GradientColor(float[] time ,int[] colors) {
+        this.aP = new ArrayList<>();
+        this.rP = new ArrayList<>();
+        this.gP = new ArrayList<>();
+        this.bP = new ArrayList<>();
+        for (int i = 0; i < colors.length; i++) {
+            this.aP.add(new Vec2(time[i], ColorUtils.alpha(colors[i])));
+            this.rP.add(new Vec2(time[i], ColorUtils.red(colors[i])));
+            this.gP.add(new Vec2(time[i], ColorUtils.green(colors[i])));
+            this.bP.add(new Vec2(time[i], ColorUtils.blue(colors[i])));
+        }
+    }
+
     public float get(List<Vec2> data, float t) {
         var value = data.get(0).y;
         var found = t < data.get(0).x;

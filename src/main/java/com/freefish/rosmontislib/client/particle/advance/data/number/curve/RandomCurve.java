@@ -1,7 +1,6 @@
-package com.freefish.rosmontislib.client.utils.curve;
+package com.freefish.rosmontislib.client.particle.advance.data.number.curve;
 
 import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction;
-import com.freefish.rosmontislib.client.particle.advance.data.number.curve.ECBCurves;
 
 import java.util.function.Supplier;
 

@@ -69,10 +69,10 @@ public class RLParticle extends AdvancedRLParticleBase{
         }
 
         for (var queue : particles.values()) {
-            //if (config.parallelUpdate && (!config.physics.isEnable() || !config.physics.isHasCollision())) { // parallel stream for particles tick.
-            //    queue.removeIf(p -> !p.isAlive());
-            //    queue.parallelStream().forEach(IParticle::tick);
-            //} else {
+            if (config.parallelUpdate && (!config.physics.isEnable() || !config.physics.isHasCollision())) { // parallel stream for particles tick.
+                queue.removeIf(p -> !p.isAlive());
+                queue.parallelStream().forEach(IParticle::tick);
+            } else {
                 var iter = queue.iterator();
                 while (iter.hasNext()) {
                     var particle = iter.next();
@@ -82,7 +82,7 @@ public class RLParticle extends AdvancedRLParticleBase{
                         particle.tick();
                     }
                 }
-            //}
+            }
         }
 
         super.update();

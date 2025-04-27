@@ -88,7 +88,7 @@ public class ScreenItem extends Item {
             //        NumberFunction.constant(1)
             //));
             //rlParticle.emmit(new EntityEffect(world,player));
-            BlockEffect blockEffect = new BlockEffect(world,player.getOnPos());
+            BlockEffect blockEffect = new BlockEffect(world,player.position());
 
             RLParticle rlParticle1 = new RLParticle();
             rlParticle1.config.setDuration(50);
@@ -176,7 +176,7 @@ public class ScreenItem extends Item {
 
 
             rlParticle1.emmit(blockEffect);
-            rlParticle2.emmit(new BlockEffect(world,player.getOnPos().above(7)));
+            rlParticle2.emmit(new BlockEffect(world,player.position()));
             rlParticle3.emmit(blockEffect);
         }
         return super.use(world, player, hand);
