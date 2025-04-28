@@ -2,6 +2,7 @@ package com.freefish.rosmontislib.example.init;
 
 import com.freefish.rosmontislib.RosmontisLib;
 import com.freefish.rosmontislib.example.item.ScreenItem;
+import com.freefish.rosmontislib.example.item.help.TestItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -15,6 +16,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class ItemHandle {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, RosmontisLib.MOD_ID);
+
+    public static final RegistryObject<Item> TEST_ITEM = ITEMS.register("test_item",
+            () -> new TestItem(new Item.Properties()));
 
     public static final RegistryObject<Item> SCREEN_ITEM = ITEMS.register("screen_item",
             () -> new ScreenItem(new Item.Properties()));

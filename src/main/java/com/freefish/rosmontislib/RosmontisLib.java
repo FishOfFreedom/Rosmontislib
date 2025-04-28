@@ -2,6 +2,8 @@ package com.freefish.rosmontislib;
 
 import com.freefish.rosmontislib.client.shader.ShaderHandle;
 import com.freefish.rosmontislib.compat.oculus.ForgeOculusHandle;
+import com.freefish.rosmontislib.event.CameraShakeEvent;
+import com.freefish.rosmontislib.event.CommonEvent;
 import com.freefish.rosmontislib.event.ServerNetwork;
 import com.freefish.rosmontislib.example.init.BlockEntityHandle;
 import com.freefish.rosmontislib.example.init.BlockHandle;
@@ -9,6 +11,7 @@ import com.freefish.rosmontislib.example.init.ItemHandle;
 import com.freefish.rosmontislib.example.init.MenuHandle;
 import com.freefish.rosmontislib.sync.TypedPayloadRegistries;
 import com.mojang.logging.LogUtils;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,7 +22,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
 
 import java.util.Random;
@@ -46,6 +51,7 @@ public class RosmontisLib
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new CommonEvent());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -63,6 +69,7 @@ public class RosmontisLib
         event.enqueueWork(()->{
             IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
             bus.addListener(ShaderHandle::registerShaders);
+            MinecraftForge.EVENT_BUS.register(CameraShakeEvent.INSTANCE);
         });
     }
 
@@ -72,6 +79,12 @@ public class RosmontisLib
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+        }
+    }
+
+    public static <MSG> void sendMSGToAll(MSG message) {
+        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+            NETWORK.sendTo(message, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
         }
     }
 

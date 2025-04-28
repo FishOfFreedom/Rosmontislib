@@ -81,6 +81,7 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    mavenCentral()
     maven {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
@@ -111,6 +112,9 @@ dependencies {
     //shader
     implementation fg.deobf("curse.maven:xenon-564239:5216360")
     implementation fg.deobf("curse.maven:oculus-581495:5299671")
+    //lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.2.0"))
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.2.0")) {

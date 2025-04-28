@@ -5,6 +5,7 @@
   "plugin": "com.freefish.rosmontislib.mixin.RLMixinPlugin",
   "refmap": "rosmontislib.refmap.json",
   "mixins": [
+    "LivingEntityMixin"
   ],
   "client": [
     "accessor.BlendModeAccessor",
