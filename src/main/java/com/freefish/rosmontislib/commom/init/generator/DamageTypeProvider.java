@@ -17,8 +17,6 @@ public class DamageTypeProvider extends DamageTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(DamageTypeTags.BYPASSES_INVULNERABILITY).add(RLResourceKey.REAL_DAMAGE);
-        this.tag(DamageTypeTags.BYPASSES_RESISTANCE).add(RLResourceKey.REAL_DAMAGE);
-        this.tag(DamageTypeTags.ALWAYS_MOST_SIGNIFICANT_FALL).add(RLResourceKey.REAL_DAMAGE);
+        this.tag(DamageTypeTags.BYPASSES_ARMOR).add(RLResourceKey.REAL_DAMAGE);
     }
 }

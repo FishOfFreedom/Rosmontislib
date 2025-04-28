@@ -57,9 +57,10 @@ public abstract class LivingEntityMixin extends Entity {
                     entity.setAbsorptionAmount(entity.getAbsorptionAmount() - f1);
                     this.gameEvent(GameEvent.ENTITY_DAMAGE);
                 }
+                return 1;
             }
         }
-        return 1;
+        return amount;
     }
 
     private float getDamageAfterArmorAbsorb(DamageSource pDamageSource, float pDamageAmount,LivingEntity living) {

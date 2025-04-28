@@ -1,4 +1,2 @@
-// 1.20.1	2025-04-28T19:24:15.4276095	Tags for minecraft:damage_type mod id rosmontislib
-3b42efd58434c5aa2d21fa4f776b49d6bd1c8c28 data/minecraft/tags/damage_type/always_most_significant_fall.json
-3b42efd58434c5aa2d21fa4f776b49d6bd1c8c28 data/minecraft/tags/damage_type/bypasses_invulnerability.json
-3b42efd58434c5aa2d21fa4f776b49d6bd1c8c28 data/minecraft/tags/damage_type/bypasses_resistance.json
+// 1.20.1	2025-04-28T23:13:05.2384181	Tags for minecraft:damage_type mod id rosmontislib
+3b42efd58434c5aa2d21fa4f776b49d6bd1c8c28 data/minecraft/tags/damage_type/bypasses_armor.json
