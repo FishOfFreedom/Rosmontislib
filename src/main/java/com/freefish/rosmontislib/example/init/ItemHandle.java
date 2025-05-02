@@ -2,6 +2,7 @@ package com.freefish.rosmontislib.example.init;
 
 import com.freefish.rosmontislib.RosmontisLib;
 import com.freefish.rosmontislib.example.item.ScreenItem;
+import com.freefish.rosmontislib.example.item.dataItem.DataSaveItem;
 import com.freefish.rosmontislib.example.item.help.TestItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,9 @@ public class ItemHandle {
 
     public static final RegistryObject<Item> TEST_ITEM = ITEMS.register("test_item",
             () -> new TestItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> DATA_ITEM = ITEMS.register("data_item",
+            () -> new DataSaveItem(new Item.Properties()));
 
     public static final RegistryObject<Item> SCREEN_ITEM = ITEMS.register("screen_item",
             () -> new ScreenItem(new Item.Properties()));
