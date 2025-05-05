@@ -1,5 +1,9 @@
 package com.freefish.rosmontislib.utils;
 
+import com.freefish.rosmontislib.RosmontisLib;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.forgespi.language.ModFileScanData;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
@@ -24,6 +28,23 @@ public class ReflectionUtils {
     }
 
     public static <A extends Annotation> void findAnnotationClasses(Class<A> annotationClass, Consumer<Class<?>> consumer, Runnable onFinished) {
-        throw new AssertionError();
+        org.objectweb.asm.Type annotationType = org.objectweb.asm.Type.getType(annotationClass);
+        for (ModFileScanData data : ModList.get().getAllScanData()) {
+            for (ModFileScanData.AnnotationData annotation : data.getAnnotations()) {
+                if (annotationType.equals(annotation.annotationType())) {
+                    if (annotation.annotationData().containsKey("modID") && annotation.annotationData().get("modID") instanceof String modID) {
+                        if (!modID.isEmpty() && !ModList.get().isLoaded(modID)) {
+                            continue;
+                        }
+                    }
+                    try {
+                        consumer.accept(Class.forName(annotation.memberName(), false, ReflectionUtils.class.getClassLoader()));
+                    } catch (Throwable throwable) {
+                        RosmontisLib.LOGGER.warn("Failed to load class for notation: " + annotation.memberName());
+                    }
+                }
+            }
+        }
+        onFinished.run();
     }
 }

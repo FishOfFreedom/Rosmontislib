@@ -17,12 +17,7 @@ import com.freefish.rosmontislib.client.particle.advance.effect.BlockEffect;
 import com.freefish.rosmontislib.client.particle.advance.effect.EntityEffect;
 import com.freefish.rosmontislib.client.utils.GradientColor;
 import com.freefish.rosmontislib.client.utils.Range;
-import com.freefish.rosmontislib.gui.RGuiHandle;
-import com.freefish.rosmontislib.gui.widget.panel.RHBox;
-import com.freefish.rosmontislib.gui.widget.panel.RVBox;
-import com.freefish.rosmontislib.gui.widget.scene.RButton;
-import com.freefish.rosmontislib.gui.widget.scene.RImageView;
-import com.freefish.rosmontislib.gui.guiproxy.RLScene;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -45,32 +40,32 @@ public class ScreenItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         if(world.isClientSide) {
             if(false){
-                RHBox hBox = new RHBox();
-                RVBox vBox = new RVBox();
-
-                RButton button = new RButton();
-
-                RImageView imageView1 = new RImageView(RING1);
-                RImageView imageView2 = new RImageView(RING2);
-                RImageView imageView3 = new RImageView(RING2);
-
-                imageView2.setInterval(3);
-                imageView3.setInterval(13);
-
-                vBox.addChildren(imageView2);
-                vBox.addChildren(button);
-                hBox.addChildren(imageView3);
-                hBox.addChildren(vBox);
-
-                button.setOnAction((isPress -> {
-                    if (isPress) {
-                    }
-                }));
-
-                RLScene rlScene = new RLScene(hBox, 384, 240);
-                rlScene.setSceneCentre(true);
-                rlScene.setRenderBackGround(false);
-                RGuiHandle.INSTANCE.openGui(rlScene);
+                //RHBox hBox = new RHBox();
+                //RVBox vBox = new RVBox();
+//
+                //RButton button = new RButton();
+//
+                //RImageView imageView1 = new RImageView(RING1);
+                //RImageView imageView2 = new RImageView(RING2);
+                //RImageView imageView3 = new RImageView(RING2);
+//
+                //imageView2.setInterval(3);
+                //imageView3.setInterval(13);
+//
+                //vBox.addChildren(imageView2);
+                //vBox.addChildren(button);
+                //hBox.addChildren(imageView3);
+                //hBox.addChildren(vBox);
+//
+                //button.setOnAction((isPress -> {
+                //    if (isPress) {
+                //    }
+                //}));
+//
+                //RLScene rlScene = new RLScene(hBox, 384, 240);
+                //rlScene.setSceneCentre(true);
+                //rlScene.setRenderBackGround(false);
+                //RGuiHandle.INSTANCE.openGui(rlScene);
             }
             //RLParticle rlParticle = new RLParticle();
             //rlParticle.config.getShape().setShape(new Circle());
@@ -90,7 +85,7 @@ public class ScreenItem extends Item {
             //rlParticle.emmit(new EntityEffect(world,player));
             BlockEffect blockEffect = new BlockEffect(world,player.position());
 
-            RLParticle rlParticle1 = new RLParticle();
+            RLParticle rlParticle1 = new RLParticle((ClientLevel) world);
             rlParticle1.config.setDuration(50);
             rlParticle1.config.setStartLifetime(NumberFunction.constant(30));
             rlParticle1.config.setStartSpeed(NumberFunction.constant(-8));
@@ -119,7 +114,7 @@ public class ScreenItem extends Item {
             rlParticle1.config.trails.open();
             rlParticle1.config.trails.config.getMaterial().setMaterial(MaterialHandle.SMOKE);
 
-            RLParticle rlParticle2 = new RLParticle();
+            RLParticle rlParticle2 = new RLParticle((ClientLevel) world);
             rlParticle2.config.setDuration(50);
             rlParticle2.transform.position(new Vector3f(0,7,0));
             rlParticle2.config.setStartLifetime(NumberFunction.constant(30));
@@ -144,7 +139,7 @@ public class ScreenItem extends Item {
             rlParticle2.config.trails.open();
             rlParticle2.config.trails.config.getMaterial().setMaterial(MaterialHandle.CIRCLE);
 
-            RLParticle rlParticle3 = new RLParticle();
+            RLParticle rlParticle3 = new RLParticle((ClientLevel) world);
             rlParticle3.config.setDuration(40);
             rlParticle3.config.setStartLifetime(NumberFunction.constant(20));
             rlParticle3.config.setStartSpeed(NumberFunction.constant(-8));

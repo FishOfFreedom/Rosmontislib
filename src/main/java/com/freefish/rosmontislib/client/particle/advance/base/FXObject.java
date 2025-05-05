@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -32,8 +33,8 @@ public class FXObject extends Particle implements IFXObject {
 
     protected IEffect effect;
 
-    protected FXObject() {
-        super(null, 0, 0, 0);
+    protected FXObject(ClientLevel level) {
+        super(level, 0, 0, 0);
         this.hasPhysics = false;
         this.friction = 1;
     }

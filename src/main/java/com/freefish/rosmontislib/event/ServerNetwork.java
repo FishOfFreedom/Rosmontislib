@@ -2,6 +2,9 @@ package com.freefish.rosmontislib.event;
 
 import com.freefish.rosmontislib.RosmontisLib;
 import com.freefish.rosmontislib.event.packet.toclient.CameraShakeMessage;
+import com.freefish.rosmontislib.event.packet.toclient.GUIOpenMessage;
+import com.freefish.rosmontislib.event.packet.toclient.SPacketUIWidgetUpdate;
+import com.freefish.rosmontislib.event.packet.toserver.CPacketUIClientAction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,6 +28,9 @@ public class ServerNetwork {
                 .simpleChannel();
 
         registerMessage(CameraShakeMessage.class, CameraShakeMessage::serialize, CameraShakeMessage::deserialize, new CameraShakeMessage.Handler());
+        registerMessage(GUIOpenMessage.class, GUIOpenMessage::serialize, GUIOpenMessage::deserialize, new GUIOpenMessage.Handler());
+        registerMessage(SPacketUIWidgetUpdate.class, SPacketUIWidgetUpdate::serialize, SPacketUIWidgetUpdate::deserialize, new SPacketUIWidgetUpdate.Handler());
+        registerMessage(CPacketUIClientAction.class, CPacketUIClientAction::serialize, CPacketUIClientAction::deserialize, new CPacketUIClientAction.Handler());
     }
 
     private static  <MSG> void registerMessage(final Class<MSG> clazz, final BiConsumer<MSG, FriendlyByteBuf> encoder, final Function<FriendlyByteBuf, MSG> decoder, final BiConsumer<MSG, Supplier<NetworkEvent.Context>> consumer) {

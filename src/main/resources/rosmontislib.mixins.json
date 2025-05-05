@@ -5,9 +5,14 @@
   "plugin": "com.freefish.rosmontislib.mixin.RLMixinPlugin",
   "refmap": "rosmontislib.refmap.json",
   "mixins": [
+    "accessor.ServerPlayerAccessor",
+    "accessor.AbstractContainerMenuAccessor",
+    "accessor.SlotAccessor",
     "LivingEntityMixin"
   ],
   "client": [
+    "accessor.AbstractContainerScreenAccessor",
+    "accessor.MouseHandlerAccessor",
     "accessor.BlendModeAccessor",
     "accessor.ShaderInstanceAccessor",
     "accessor.ParticleEngineAccessor",

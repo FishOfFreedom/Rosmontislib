@@ -1,7 +1,6 @@
 package com.freefish.rosmontislib.event;
 
 import com.freefish.rosmontislib.RosmontisLib;
-import com.freefish.rosmontislib.gui.RGuiHandle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,7 +21,7 @@ public class ClientEvent {
 
         //todo skip
         if (event.getOverlay().id() == VanillaGuiOverlay.HOTBAR.id()) {
-            RGuiHandle.INSTANCE.renderHUD(event.getGuiGraphics(),event.getPartialTick());
+            //RGuiHandle.INSTANCE.renderHUD(event.getGuiGraphics(),event.getPartialTick());
         }
     }
 }

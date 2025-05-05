@@ -5,6 +5,7 @@ import com.freefish.rosmontislib.client.particle.advance.RLParticleQueueRenderTy
 import com.freefish.rosmontislib.client.particle.advance.RLParticleRenderType;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,13 +22,14 @@ public class RLTrailParticle extends AdvancedRLParticleBase {
     // runtime
     protected TrailParticle trailParticle;
 
-    public RLTrailParticle() {
-        this(new RLTrailConfig());
+    public RLTrailParticle(ClientLevel level) {
+        this(level,new RLTrailConfig());
         config.smoothInterpolation = true;
         config.minVertexDistance = 0.1f;
     }
 
-    public RLTrailParticle(RLTrailConfig config) {
+    public RLTrailParticle(ClientLevel level, RLTrailConfig config) {
+        super(level);
         this.config = config;
         init();
     }

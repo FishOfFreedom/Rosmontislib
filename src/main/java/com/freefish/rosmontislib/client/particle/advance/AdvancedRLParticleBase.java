@@ -3,6 +3,7 @@ package com.freefish.rosmontislib.client.particle.advance;
 import com.freefish.rosmontislib.client.particle.advance.base.FXObject;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticle;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticleEmitter;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -45,7 +46,8 @@ public abstract class AdvancedRLParticleBase extends FXObject implements IPartic
     protected ConcurrentHashMap<Object, Float> memRandom = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<BlockPos, Integer> lightCache = new ConcurrentHashMap<>();
 
-    protected AdvancedRLParticleBase() {
+    protected AdvancedRLParticleBase(ClientLevel level) {
+        super(level);
         this.friction = 1;
     }
 

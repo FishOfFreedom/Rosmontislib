@@ -60,6 +60,10 @@ public interface IFXObject extends ISceneObject {
 
     default void emmit(IEffect effect, @Nullable Vector3f position, @Nullable Quaternionf rotation, @Nullable Vector3f scale) {
         setEffect(effect);
+        if(effect.getLevel()==null) {
+            return;
+        }
+        setLevel(effect.getLevel());
         if (position != null) {
             updatePos(position);
         }

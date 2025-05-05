@@ -14,7 +14,7 @@ public class ClientEventHandle {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event){
         if(RosmontisLib.isDevEnv()) {
-            MenuScreens.register(MenuHandle.ENTITY_SPAWNER_MENU.get(), EntitySpawnerScreen::new);
+            //MenuScreens.register(MenuHandle.ENTITY_SPAWNER_MENU.get(), EntitySpawnerScreen::new);
         }
     }
 }

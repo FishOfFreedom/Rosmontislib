@@ -2,7 +2,9 @@ package com.freefish.rosmontislib.example.item.help;
 
 import com.freefish.rosmontislib.client.RLClientUseUtils;
 import com.freefish.rosmontislib.commom.init.DamageSourceHandle;
+import com.freefish.rosmontislib.gui.factory.UIEditorFactory;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,6 +42,8 @@ public class TestItem extends Item {
                     RLClientUseUtils.StartCameraShake(level,player.position().add(100,0,0),200,0.1f,10,10);
                 }
                 else if(mode==Mode.PLAY_ANIMATION){
+                    UIEditorFactory.INSTANCE.openUI(UIEditorFactory.INSTANCE,
+                            (ServerPlayer) player);
                 }
             }
         }
@@ -47,7 +51,9 @@ public class TestItem extends Item {
             if(level.isClientSide){
             }
         }
-        if(mode==Mode.SUMMON_GROUP&&!level.isClientSide){
+
+        if(mode==Mode.GUI &&!level.isClientSide){
+
         }else if(mode==Mode.DIALOGUE){
 
         }
@@ -57,7 +63,7 @@ public class TestItem extends Item {
 
 
     enum Mode{
-        MOVE("move"),CLEAN_ENTITY("clean_entity"),PLAY_ANIMATION("play_animation"),PARTICLE("particle"),START_DIALOGUE("start_dialogue"),SUMMON_GROUP("summon_group"),DIALOGUE("dialogue");
+        MOVE("move"),CLEAN_ENTITY("clean_entity"),PLAY_ANIMATION("play_animation"),PARTICLE("particle"),START_DIALOGUE("start_dialogue"), GUI("gui"),DIALOGUE("dialogue");
 
         Mode(String name) {
             this.name = name;
@@ -76,8 +82,8 @@ public class TestItem extends Item {
                 case PARTICLE -> PLAY_ANIMATION;
                 case PLAY_ANIMATION -> CLEAN_ENTITY;
                 case CLEAN_ENTITY -> START_DIALOGUE;
-                case START_DIALOGUE -> SUMMON_GROUP;
-                case SUMMON_GROUP -> DIALOGUE;
+                case START_DIALOGUE -> GUI;
+                case GUI -> DIALOGUE;
             };
         }
     }

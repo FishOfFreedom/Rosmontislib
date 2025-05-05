@@ -6,6 +6,7 @@ import com.freefish.rosmontislib.client.particle.advance.RLParticleRenderType;
 import com.freefish.rosmontislib.client.particle.advance.data.material.CustomShaderMaterial;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,12 +23,13 @@ public class RLBeamParticle extends AdvancedRLParticleBase {
     // runtime
     protected BeamParticle beamParticle;
 
-    public RLBeamParticle() {
-        this(new RLBeamConfig());
+    public RLBeamParticle(ClientLevel level) {
+        this(level,new RLBeamConfig());
         config.material.setMaterial(new CustomShaderMaterial());
     }
 
-    public RLBeamParticle(RLBeamConfig config) {
+    public RLBeamParticle(ClientLevel level, RLBeamConfig config) {
+        super(level);
         this.config = config;
         init();
     }

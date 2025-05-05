@@ -1,5 +1,6 @@
 package com.freefish.rosmontislib.client.utils;
 
+import lombok.Getter;
 import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.phys.Vec2;
@@ -12,22 +13,8 @@ import java.util.List;
  * @date 2023/5/30
  * @implNote Gradient
  */
+@Getter
 public class GradientColor {
-    public List<Vec2> getaP() {
-        return aP;
-    }
-
-    public List<Vec2> getbP() {
-        return bP;
-    }
-
-    public List<Vec2> getgP() {
-        return gP;
-    }
-
-    public List<Vec2> getrP() {
-        return rP;
-    }
 
     protected List<Vec2> aP, rP, gP, bP;
 
