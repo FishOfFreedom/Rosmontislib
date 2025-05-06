@@ -17,12 +17,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,31 +42,131 @@ import java.util.function.Predicate;
 public class FluidTransferHelper {
 
     public static IFluidTransfer getFluidTransfer(Level level, BlockPos pos, @Nullable Direction direction) {
-        throw new AssertionError();
+        BlockState state = level.getBlockState(pos);
+        if (state.hasBlockEntity()) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity != null) {
+                var handler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction);
+                if (handler.isPresent()) {
+                    return toFluidTransfer(handler.orElse(null));
+                }
+            }
+        }
+        return null;
     }
 
     public static IFluidTransfer getFluidTransfer(IItemTransfer itemTransfer, int slot) {
-        throw new AssertionError();
+        var itemStack = itemTransfer.getStackInSlot(slot);
+        if (!itemStack.isEmpty()) {
+            var handler = itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+            if (handler.isPresent()) {
+                return toFluidTransfer(handler.orElse(null));
+            }
+        }
+        return null;
     }
 
     public static IFluidTransfer getFluidTransfer(Player player, AbstractContainerMenu screenHandler) {
-        throw new AssertionError();
+        var itemStack = screenHandler.getCarried();
+        if (!itemStack.isEmpty()) {
+            var handler = itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+            if (handler.isPresent()) {
+                return toFluidTransfer(handler.orElse(null));
+            }
+        }
+        return null;
     }
 
     public static IFluidTransfer getFluidTransfer(Player player, InteractionHand hand) {
-        throw new AssertionError();
+        var itemStack = player.getItemInHand(hand);
+        if (!itemStack.isEmpty()) {
+            var handler = itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+            if (handler.isPresent()) {
+                return toFluidTransfer(handler.orElse(null));
+            }
+        }
+        return null;
     }
 
     public static IFluidTransfer getFluidTransfer(Player player, int slot) {
-        throw new AssertionError();
+        var itemStack = player.getInventory().getItem(slot);
+        if (!itemStack.isEmpty()) {
+            var handler = itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+            if (handler.isPresent()) {
+                return toFluidTransfer(handler.orElse(null));
+            }
+        }
+        return null;
+    }
+
+    public static IFluidTransfer toFluidTransfer(IFluidHandler handler) {
+        if (handler instanceof IFluidTransfer fluidTransfer) {
+            return fluidTransfer;
+        } else {
+            return new FluidTransferWrapper(handler);
+        }
     }
 
     public static void exportToTarget(IFluidTransfer source, int maxAmount, Predicate<FluidStack> filter, Level level, BlockPos pos, @Nullable Direction direction) {
-        throw new AssertionError();
+        BlockState state = level.getBlockState(pos);
+        if (state.hasBlockEntity()) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity != null) {
+                var cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction).resolve();
+                if (cap.isPresent()) {
+                    var target = cap.get();
+                    for (int srcIndex = 0; srcIndex < source.getTanks(); srcIndex++) {
+                        var currentFluid = source.getFluidInTank(srcIndex);
+                        if (currentFluid.isEmpty() || !filter.test(currentFluid)) {
+                            continue;
+                        }
+
+                        var toDrain = currentFluid.copy();
+                        toDrain.setAmount(maxAmount);
+
+                        var filled = target.fill(FluidHelper.toFluidStack(source.drain(toDrain, true)), IFluidHandler.FluidAction.SIMULATE);
+                        if (filled > 0) {
+                            maxAmount -= filled;
+                            toDrain = currentFluid.copy();
+                            toDrain.setAmount(filled);
+                            target.fill(FluidHelper.toFluidStack(source.drain(toDrain, false)), IFluidHandler.FluidAction.EXECUTE);
+                        }
+                        if (maxAmount <= 0) return;
+                    }
+                }
+            }
+        }
     }
 
     public static void importToTarget(IFluidTransfer target, int maxAmount, Predicate<FluidStack> filter, Level level, BlockPos pos, @Nullable Direction direction) {
-        throw new AssertionError();
+        BlockState state = level.getBlockState(pos);
+        if (state.hasBlockEntity()) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity != null) {
+                var cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction).resolve();
+                if (cap.isPresent()) {
+                    var source = cap.get();
+                    for (int srcIndex = 0; srcIndex < source.getTanks(); srcIndex++) {
+                        var currentFluid = source.getFluidInTank(srcIndex);
+                        if (currentFluid.isEmpty() || !filter.test(FluidHelper.toFluidStack(currentFluid))) {
+                            continue;
+                        }
+
+                        var toDrain = currentFluid.copy();
+                        toDrain.setAmount(maxAmount);
+
+                        var filled = target.fill(FluidHelper.toFluidStack(source.drain(toDrain, IFluidHandler.FluidAction.SIMULATE)), true);
+                        if (filled > 0) {
+                            maxAmount -= filled;
+                            toDrain = currentFluid.copy();
+                            toDrain.setAmount((int) filled);
+                            target.fill(FluidHelper.toFluidStack(source.drain(toDrain, IFluidHandler.FluidAction.EXECUTE)), false);
+                        }
+                        if (maxAmount <= 0) return;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -205,7 +309,10 @@ public class FluidTransferHelper {
     }
 
     public static ItemStack getContainerItem(ItemStackTransfer copyContainer, IFluidTransfer handler) {
-        throw new AssertionError();
+        if (handler instanceof FluidTransferWrapper wrapper && wrapper.getHandler() instanceof IFluidHandlerItem fluidHandlerItem) {
+            return fluidHandlerItem.getContainer();
+        }
+        return copyContainer.getStackInSlot(0);
     }
 
     /**

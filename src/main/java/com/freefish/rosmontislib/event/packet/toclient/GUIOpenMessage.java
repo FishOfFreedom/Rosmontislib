@@ -52,7 +52,6 @@ public class GUIOpenMessage {
             context.enqueueWork(() -> {
                 UIFactory<?> uiFactory = UIFactory.FACTORIES.get(message.uiFactoryId);
                 if (uiFactory != null) {
-                    System.out.println("client2");
                     uiFactory.initClientUI(message.serializedHolder, message.windowId);
                 }
             });

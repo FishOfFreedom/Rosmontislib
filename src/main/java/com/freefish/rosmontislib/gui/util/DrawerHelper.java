@@ -38,6 +38,7 @@ import org.lwjgl.opengl.GL11;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class DrawerHelper {
@@ -425,11 +426,11 @@ public class DrawerHelper {
         BufferUploader.draw(builder.end());
     }
 
-    public static void drawTooltip(GuiGraphics graphics, int mouseX, int mouseY, List<Component> tooltipTexts, ItemStack tooltipStack, @Nullable TooltipComponent tooltipComponent, Font tooltipFont) {
-        throw new AssertionError();
+    public static void drawTooltip(GuiGraphics graphics, int mouseX, int mouseY, List<Component> tooltipTexts, ItemStack tooltipStack, TooltipComponent tooltipComponent, Font tooltipFont) {
+        graphics.renderTooltip(tooltipFont, tooltipTexts, Optional.ofNullable(tooltipComponent), tooltipStack, mouseX, mouseY);
     }
 
     public static ClientTooltipComponent getClientTooltipComponent(TooltipComponent component) {
-        throw new AssertionError();
+        return ClientTooltipComponent.create(component);
     }
 }

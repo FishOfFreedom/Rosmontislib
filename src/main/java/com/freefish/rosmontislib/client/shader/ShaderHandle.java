@@ -45,7 +45,6 @@ public class ShaderHandle {
                     .build());
 
     public static void registerShaders(final RegisterShadersEvent e) {
-        init();
         try {
             e.registerShader(new ShaderInstance(e.getResourceProvider(), new ResourceLocation(RosmontisLib.MOD_ID,"particle"), DefaultVertexFormat.POSITION), ShaderHandle::setParticleShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(), new ResourceLocation(RosmontisLib.MOD_ID,"hsb_block"), HSB_VERTEX_FORMAT), ShaderHandle::setHSBAlphaShader);
@@ -59,8 +58,8 @@ public class ShaderHandle {
 
     private static final List<Runnable> reloadListeners = new ArrayList<>();
     public static Shader IMAGE_V;
-    public static Shader GUI_IMAGE_V;
     public static Shader SCREEN_V;
+    public static Shader GUI_IMAGE_V;
     public static Shader ROUND_F;
     public static Shader PANEL_BG_F;
     public static Shader ROUND_BOX_F;

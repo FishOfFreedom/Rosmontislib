@@ -82,6 +82,7 @@ public class RosmontisLib
         event.enqueueWork(()->{
             IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
             bus.addListener(ShaderHandle::registerShaders);
+            ShaderHandle.init();
             DrawerHelper.init();
             MinecraftForge.EVENT_BUS.register(CameraShakeEvent.INSTANCE);
         });

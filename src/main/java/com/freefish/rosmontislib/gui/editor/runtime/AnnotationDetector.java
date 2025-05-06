@@ -21,6 +21,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * @author KilaBash
@@ -68,13 +69,13 @@ public class AnnotationDetector {
             //            });
             //}
         }
-        //AnnotationDetector.scanClasses(
-        //        LDLRegister.class,
-        //        BaseNode.class,
-        //        AnnotationDetector::checkNoArgsConstructor,
-        //        AnnotationDetector::toUINoArgsBuilder,
-        //        AnnotationDetector::UIWrapperSorter,
-        //        l -> REGISTER_GP_NODES.putAll(l.stream().collect(Collectors.toMap(w -> w.annotation().name(), w -> w))));
+        AnnotationDetector.scanClasses(
+                LDLRegister.class,
+                BaseNode.class,
+                AnnotationDetector::checkNoArgsConstructor,
+                AnnotationDetector::toUINoArgsBuilder,
+                AnnotationDetector::UIWrapperSorter,
+                l -> REGISTER_GP_NODES.putAll(l.stream().collect(Collectors.toMap(w -> w.annotation().name(), w -> w))));
     }
 
     public static <A extends Annotation, T, C> List<C> scanClasses(Class<A> annotationClass, Class<T> baseClazz, BiPredicate<A, Class<? extends T>> predicate, Function<Class<? extends T>, C> mapping, Comparator<C> sorter, Consumer<List<C>> onFinished) {
