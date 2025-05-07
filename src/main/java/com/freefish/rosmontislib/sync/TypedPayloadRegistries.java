@@ -2,13 +2,16 @@ package com.freefish.rosmontislib.sync;
 
 import com.freefish.rosmontislib.sync.accessor.ObjectTypedPayloadAccessor;
 import com.freefish.rosmontislib.sync.payload.*;
+import com.freefish.rosmontislib.utils.FluidStack;
 import com.freefish.rosmontislib.utils.ReflectionUtils;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.bytes.Byte2ObjectMap;
 import it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ByteMap;
 import it.unimi.dsi.fastutil.objects.Object2ByteOpenHashMap;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.GenericArrayType;
@@ -167,6 +170,28 @@ public class TypedPayloadRegistries {
         register(EnumValuePayload.class, EnumValuePayload::new, SyncedFieldAccessors.ENUM_ACCESSOR, 1000);
 
         registerSimple(NbtTagPayload.class, NbtTagPayload::new, Tag.class, 99);
+        registerSimple(BlockPosPayload.class, BlockPosPayload::new, BlockPos.class, 1);
+        registerSimple(FluidStackPayload.class, FluidStackPayload::new, FluidStack.class, -1);
+        registerSimple(StringPayload.class, StringPayload::new, String.class, -1);
+        registerSimple(UUIDPayload.class, UUIDPayload::new, UUID.class, -1);
+        registerSimple(ItemStackPayload.class, ItemStackPayload::new, ItemStack.class, -1);
+
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.BLOCK_STATE_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.RECIPE_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.POSITION_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.VECTOR3_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.QUATERNION_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.AABB_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.RANGE_ACCESSOR, -1);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.SIZE_ACCESSOR, -1);
+        register(StringPayload.class, StringPayload::new, SyncedFieldAccessors.RESOURCE_LOCATION_ACCESSOR, -1);
+
+
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.GUI_TEXTURE_ACCESSOR, 1000);
+        register(StringPayload.class, StringPayload::new, SyncedFieldAccessors.COMPONENT_ACCESSOR, 1000);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.BLOCK_ACCESSOR, 1000);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.ITEM_ACCESSOR, 1000);
+        register(NbtTagPayload.class, NbtTagPayload::new, SyncedFieldAccessors.FLUID_ACCESSOR, 1000);
     }
 
     public static void postInit() {

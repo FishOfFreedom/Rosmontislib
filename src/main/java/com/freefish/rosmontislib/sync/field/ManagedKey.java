@@ -6,6 +6,7 @@ import com.freefish.rosmontislib.sync.TypedPayloadRegistries;
 import com.freefish.rosmontislib.sync.accessor.IArrayLikeAccessor;
 import com.freefish.rosmontislib.sync.managed.*;
 import com.freefish.rosmontislib.sync.payload.ITypedPayload;
+import lombok.Getter;
 import net.minecraft.nbt.Tag;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,10 +19,6 @@ public class ManagedKey {
 
     public boolean isDrop() {
         return isDrop;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public boolean isDestSync() {
@@ -39,14 +36,6 @@ public class ManagedKey {
 
     public boolean isLazy() {
         return isLazy;
-    }
-
-    public Type getContentType() {
-        return contentType;
-    }
-
-    public Field getRawField() {
-        return rawField;
     }
 
     public boolean isReadOnlyManaged() {
@@ -68,6 +57,7 @@ public class ManagedKey {
         return deserializeMethod;
     }
 
+    @Getter
     private final String name;
 
     private final boolean isDestSync;
@@ -81,8 +71,10 @@ public class ManagedKey {
 
     private final boolean isLazy;
 
+    @Getter
     private final Type contentType;
 
+    @Getter
     private final Field rawField;
 
     private boolean isReadOnlyManaged;
