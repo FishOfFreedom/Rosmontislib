@@ -37,6 +37,7 @@ public class FileMenu extends MenuTab {
                 .crossLine()
                 .branch(Icons.IMPORT, "ldlib.gui.editor.menu.import", m -> m.leaf("ldlib.gui.editor.menu.resource", this::importResource))
                 .branch(Icons.EXPORT, "ldlib.gui.editor.menu.export", m -> m.leaf("ldlib.gui.editor.menu.resource", this::exportResource));
+        menu.leaf(Icons.COPY, "ldlib.gui.editor.tips.save_as", this::outputCode);
         return menu;
     }
 
@@ -138,6 +139,13 @@ public class FileMenu extends MenuTab {
                         }
                     }
                 });
+    }
+
+    private void outputCode() {
+        var resources = editor.getResourcePanel().getResources();
+        if (resources != null) {
+            DialogWidget.showStringEditorDialog(editor, "1", "1", (s) -> true, s -> {System.out.println(s);});
+        }
     }
 
 }

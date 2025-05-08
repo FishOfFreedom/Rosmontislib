@@ -8,7 +8,9 @@
     "accessor.ServerPlayerAccessor",
     "accessor.AbstractContainerMenuAccessor",
     "accessor.SlotAccessor",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "LevelMixin",
+    "ServerLevelMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
@@ -22,7 +24,8 @@
     "MainTargetMixin",
     "PostChainMixin",
     "PostPassMixin",
-    "RenderTargetMixin"
+    "RenderTargetMixin",
+    "ClientLevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
