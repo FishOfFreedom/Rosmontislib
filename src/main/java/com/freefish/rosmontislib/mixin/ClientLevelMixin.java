@@ -1,6 +1,7 @@
 package com.freefish.rosmontislib.mixin;
 
 import com.freefish.rosmontislib.levelentity.ILevelEntityManager;
+import com.freefish.rosmontislib.levelentity.LevelEntityManager;
 import com.freefish.rosmontislib.levelentity.LevelEntityManagerClient;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -24,5 +25,13 @@ public abstract class ClientLevelMixin {
                                  Holder<DimensionType> pDimensionType, int pViewDistance, int pServerSimulationDistance,
                                  Supplier<ProfilerFiller> pProfiler, LevelRenderer pLevelRenderer, boolean pIsDebug, long pBiomeZoomSeed, CallbackInfo ci) {
         ((ILevelEntityManager) this).setLevelEntityManager(new LevelEntityManagerClient());
+    }
+
+    @Inject(method = "tickEntities", at = @At("RETURN"))
+    private void tickLevelEntity(CallbackInfo ci) {
+        LevelEntityManager levelEntityManager = ((ILevelEntityManager) this).getLevelEntityManager();
+        if(levelEntityManager!=null){
+            levelEntityManager.tick();
+        }
     }
 }

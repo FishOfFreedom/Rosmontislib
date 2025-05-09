@@ -1,9 +1,7 @@
 package com.freefish.rosmontislib.event;
 
 import com.freefish.rosmontislib.RosmontisLib;
-import com.freefish.rosmontislib.event.packet.toclient.CameraShakeMessage;
-import com.freefish.rosmontislib.event.packet.toclient.GUIOpenMessage;
-import com.freefish.rosmontislib.event.packet.toclient.SPacketUIWidgetUpdate;
+import com.freefish.rosmontislib.event.packet.toclient.*;
 import com.freefish.rosmontislib.event.packet.toserver.CPacketUIClientAction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +29,8 @@ public class ServerNetwork {
         registerMessage(GUIOpenMessage.class, GUIOpenMessage::serialize, GUIOpenMessage::deserialize, new GUIOpenMessage.Handler());
         registerMessage(SPacketUIWidgetUpdate.class, SPacketUIWidgetUpdate::serialize, SPacketUIWidgetUpdate::deserialize, new SPacketUIWidgetUpdate.Handler());
         registerMessage(CPacketUIClientAction.class, CPacketUIClientAction::serialize, CPacketUIClientAction::deserialize, new CPacketUIClientAction.Handler());
+        registerMessage(CRClientLevelEntityMessage.class, CRClientLevelEntityMessage::serialize, CRClientLevelEntityMessage::deserialize, new CRClientLevelEntityMessage.Handler());
+        registerMessage(SetLevelEntityDataMessage.class, SetLevelEntityDataMessage::serialize, SetLevelEntityDataMessage::deserialize, new SetLevelEntityDataMessage.Handler());
     }
 
     private static  <MSG> void registerMessage(final Class<MSG> clazz, final BiConsumer<MSG, FriendlyByteBuf> encoder, final Function<FriendlyByteBuf, MSG> decoder, final BiConsumer<MSG, Supplier<NetworkEvent.Context>> consumer) {
