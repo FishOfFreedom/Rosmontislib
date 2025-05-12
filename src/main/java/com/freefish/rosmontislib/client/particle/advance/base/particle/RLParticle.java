@@ -5,9 +5,8 @@ import com.freefish.rosmontislib.client.particle.advance.RLParticleQueueRenderTy
 import com.freefish.rosmontislib.client.particle.advance.RLParticleRenderType;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticle;
 import com.freefish.rosmontislib.client.particle.advance.base.IParticleEmitter;
-import com.freefish.rosmontislib.client.utils.Transform;
 import com.google.common.collect.Queues;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
@@ -36,12 +35,12 @@ public class RLParticle extends AdvancedRLParticleBase{
     protected final Map<RLParticleRenderType, Queue<IParticle>> particles = new LinkedHashMap<>();
     public final Queue<IParticle> waitToAdded = Queues.newArrayDeque();
 
-    public RLParticle(ClientLevel level) {
+    public RLParticle(Level level) {
         this(level,new RLParticleConfig());
     }
 
-    protected RLParticle(ClientLevel level,RLParticleConfig config) {
-        super(level);
+    protected RLParticle(Level level,RLParticleConfig config) {
+        super((ClientLevel) level);
         this.config = config;
     }
 

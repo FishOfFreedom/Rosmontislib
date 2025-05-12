@@ -478,14 +478,14 @@
 [284月2025 23:13:04.417] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for oculus
 [284月2025 23:13:04.421] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for rosmontislib
 [284月2025 23:13:04.421] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.freefish.rosmontislib.commom.init.generator.DataGenerators to MOD
-[284月2025 23:13:04.424] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.freefish.rosmontislib.event.ClientEvent to FORGE
+[284月2025 23:13:04.424] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.freefish.rosmontislib.event.listener.ClientEvent to FORGE
 [284月2025 23:13:04.431] [modloading-worker-0/DEBUG] [mixin/]: Mixing workarounds.context_creation.WindowMixin from xenon.mixins.json into com.mojang.blaze3d.platform.Window
 [284月2025 23:13:04.440] [modloading-worker-0/DEBUG] [mixin/]: Mixing extras.borderless.accessors.MainWindowAccessor from xenon.mixins.json into com.mojang.blaze3d.platform.Window
 [284月2025 23:13:04.444] [modloading-worker-0/DEBUG] [mixin/]: Mixing extras.borderless.BorderlessWindowMixin from xenon.mixins.json into com.mojang.blaze3d.platform.Window
 [284月2025 23:13:04.444] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinWindow from mixins.oculus.json into com.mojang.blaze3d.platform.Window
 [284月2025 23:13:04.444] [modloading-worker-0/DEBUG] [mixin/]: mixins.oculus.json:MixinWindow: Class version 61 required is higher than the class version supported by the current version of Mixin (JAVA_8 supports class version 52)
 [284月2025 23:13:04.511] [modloading-worker-0/DEBUG] [mixin/]: Mixing features.textures.animations.tracking.DrawContextMixin from xenon.mixins.json into net.minecraft.client.gui.GuiGraphics
-[284月2025 23:13:04.528] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.freefish.rosmontislib.event.ClientEventListener to FORGE
+[284月2025 23:13:04.528] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.freefish.rosmontislib.event.listener.ClientEventListener to FORGE
 [284月2025 23:13:04.530] [modloading-worker-0/DEBUG] [mixin/]: Mixing MixinTitleScreen from mixins.oculus.json into net.minecraft.client.gui.screens.TitleScreen
 [284月2025 23:13:04.530] [modloading-worker-0/DEBUG] [mixin/]: mixins.oculus.json:MixinTitleScreen: Class version 61 required is higher than the class version supported by the current version of Mixin (JAVA_8 supports class version 52)
 [284月2025 23:13:04.530] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.freefish.rosmontislib.example.client.ClientEventHandle to MOD

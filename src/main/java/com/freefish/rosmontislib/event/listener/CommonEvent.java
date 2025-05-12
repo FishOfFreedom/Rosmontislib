@@ -1,4 +1,4 @@
-package com.freefish.rosmontislib.event;
+package com.freefish.rosmontislib.event.listener;
 
 import com.freefish.rosmontislib.client.ClientHandle;
 import com.freefish.rosmontislib.command.RLCommonCommand;

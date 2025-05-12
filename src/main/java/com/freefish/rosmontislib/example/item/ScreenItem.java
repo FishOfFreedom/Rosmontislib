@@ -5,7 +5,6 @@ import com.freefish.rosmontislib.client.particle.advance.base.particle.RLParticl
 import com.freefish.rosmontislib.client.particle.advance.data.EmissionSetting;
 import com.freefish.rosmontislib.client.particle.advance.data.UVAnimationSetting;
 import com.freefish.rosmontislib.client.particle.advance.data.VelocityOverLifetimeSetting;
-import com.freefish.rosmontislib.client.particle.advance.data.material.CustomShaderMaterial;
 import com.freefish.rosmontislib.client.particle.advance.data.material.MaterialHandle;
 import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction;
 import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction3;
@@ -15,9 +14,7 @@ import com.freefish.rosmontislib.client.particle.advance.data.number.color.Gradi
 import com.freefish.rosmontislib.client.particle.advance.data.shape.Circle;
 import com.freefish.rosmontislib.client.particle.advance.effect.BlockEffect;
 import com.freefish.rosmontislib.client.particle.advance.effect.EntityEffect;
-import com.freefish.rosmontislib.client.utils.GradientColor;
 import com.freefish.rosmontislib.client.utils.Range;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -85,7 +82,7 @@ public class ScreenItem extends Item {
             //rlParticle.emmit(new EntityEffect(world,player));
             BlockEffect blockEffect = new BlockEffect(world,player.position());
 
-            RLParticle rlParticle1 = new RLParticle((ClientLevel) world);
+            RLParticle rlParticle1 = new RLParticle( world);
             rlParticle1.config.setDuration(50);
             rlParticle1.config.setStartLifetime(NumberFunction.constant(30));
             rlParticle1.config.setStartSpeed(NumberFunction.constant(-8));
@@ -95,7 +92,7 @@ public class ScreenItem extends Item {
             EmissionSetting.Burst burst = new EmissionSetting.Burst();burst.setCount(NumberFunction.constant(60));
             rlParticle1.config.getEmission().addBursts(burst);
 
-            rlParticle1.config.getMaterial().setMaterial(MaterialHandle.SMOKE);
+            rlParticle1.config.getMaterial().setMaterial(MaterialHandle.SMOKE.create());
 
             Circle circle = new Circle();circle.setRadius(16);circle.setRadiusThickness(0.2f);
             rlParticle1.config.getShape().setShape(circle);
@@ -112,9 +109,9 @@ public class ScreenItem extends Item {
             rlParticle1.config.getUvAnimation().setAnimation(UVAnimationSetting.Animation.SingleRow);
 
             rlParticle1.config.trails.open();
-            rlParticle1.config.trails.config.getMaterial().setMaterial(MaterialHandle.SMOKE);
+            rlParticle1.config.trails.config.getMaterial().setMaterial(MaterialHandle.SMOKE.create());
 
-            RLParticle rlParticle2 = new RLParticle((ClientLevel) world);
+            RLParticle rlParticle2 = new RLParticle(world);
             rlParticle2.config.setDuration(50);
             rlParticle2.transform.position(new Vector3f(0,7,0));
             rlParticle2.config.setStartLifetime(NumberFunction.constant(30));
@@ -123,7 +120,7 @@ public class ScreenItem extends Item {
 
             rlParticle2.config.getEmission().setEmissionRate(NumberFunction.constant(0.5));
 
-            rlParticle2.config.getMaterial().setMaterial(MaterialHandle.VOID);
+            rlParticle2.config.getMaterial().setMaterial(MaterialHandle.VOID.create());
 
             Circle circle2 = new Circle();circle2.setRadius(16);circle2.setRadiusThickness(0.2f);
             rlParticle2.config.getShape().setShape(circle2);
@@ -137,9 +134,9 @@ public class ScreenItem extends Item {
             rlParticle2.config.getColorOverLifetime().setColor(new Gradient(GradientHandle.CENTER_OPAQUE));
 
             rlParticle2.config.trails.open();
-            rlParticle2.config.trails.config.getMaterial().setMaterial(MaterialHandle.CIRCLE);
+            rlParticle2.config.trails.config.getMaterial().setMaterial(MaterialHandle.CIRCLE.create());
 
-            RLParticle rlParticle3 = new RLParticle((ClientLevel) world);
+            RLParticle rlParticle3 = new RLParticle( world);
             rlParticle3.config.setDuration(40);
             rlParticle3.config.setStartLifetime(NumberFunction.constant(20));
             rlParticle3.config.setStartSpeed(NumberFunction.constant(-8));
@@ -150,7 +147,7 @@ public class ScreenItem extends Item {
             burst3.cycles = 0;
             rlParticle3.config.getEmission().addBursts(burst3);
 
-            rlParticle3.config.getMaterial().setMaterial(MaterialHandle.SMOKE);
+            rlParticle3.config.getMaterial().setMaterial(MaterialHandle.SMOKE.create());
 
             Circle circle3 = new Circle();circle3.setRadius(8);circle3.setRadiusThickness(0.2f);
             rlParticle3.config.getShape().setShape(circle3);
@@ -167,11 +164,11 @@ public class ScreenItem extends Item {
             rlParticle3.config.getUvAnimation().setAnimation(UVAnimationSetting.Animation.SingleRow);
 
             rlParticle3.config.trails.open();
-            rlParticle3.config.trails.config.getMaterial().setMaterial(MaterialHandle.SMOKE);
+            rlParticle3.config.trails.config.getMaterial().setMaterial(MaterialHandle.SMOKE.create());
 
 
             rlParticle1.emmit(blockEffect);
-            rlParticle2.emmit(new BlockEffect(world,player.position()));
+            rlParticle2.emmit(new EntityEffect(world,player));
             rlParticle3.emmit(blockEffect);
         }
         return super.use(world, player, hand);

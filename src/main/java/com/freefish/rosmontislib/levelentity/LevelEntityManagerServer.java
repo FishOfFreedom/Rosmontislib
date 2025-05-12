@@ -1,6 +1,7 @@
 package com.freefish.rosmontislib.levelentity;
 
 import com.freefish.rosmontislib.RosmontisLib;
+import com.freefish.rosmontislib.event.RLNetworking;
 import com.freefish.rosmontislib.event.packet.toclient.CRClientLevelEntityMessage;
 import com.freefish.rosmontislib.levelentity.sync.SavedLevelEntityData;
 import net.minecraft.nbt.CompoundTag;
@@ -52,7 +53,7 @@ public class LevelEntityManagerServer extends LevelEntityManager{
             next.tick();
             if (next.isRemove()) {
                 next.onRemoveFromWorld();
-                RosmontisLib.sendMSGToAll(new CRClientLevelEntityMessage(false,next));
+                RLNetworking.NETWORK.sendToAll(new CRClientLevelEntityMessage(false,next));
                 iterator.remove();
             }
         }

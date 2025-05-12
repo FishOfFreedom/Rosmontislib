@@ -9,12 +9,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @LDLRegister(name = "border_texture", group = "texture")
 public class ResourceBorderTexture extends ResourceTexture {
-    public static final ResourceBorderTexture BORDERED_BACKGROUND = new ResourceBorderTexture("ldlib:textures/gui/background.png", 16, 16, 4, 4);
-    public static final ResourceBorderTexture BORDERED_BACKGROUND_INVERSE = new ResourceBorderTexture("ldlib:textures/gui/background_inverse.png", 16, 16, 4, 4);
-    public static final ResourceBorderTexture BORDERED_BACKGROUND_BLUE = new ResourceBorderTexture("ldlib:textures/gui/bordered_background_blue.png", 195, 136, 4, 4);
-    public static final ResourceBorderTexture BUTTON_COMMON = new ResourceBorderTexture("ldlib:textures/gui/button.png", 32, 32, 2, 2);
-    public static final ResourceBorderTexture BAR = new ResourceBorderTexture("ldlib:textures/gui/button_common.png", 180, 20, 1, 1);
-    public static final ResourceBorderTexture SELECTED = new ResourceBorderTexture("ldlib:textures/gui/selected.png", 16, 16, 2, 2);
+    public static final ResourceBorderTexture BORDERED_BACKGROUND = new ResourceBorderTexture("rosmontislib:textures/gui/background.png", 16, 16, 4, 4);
+    public static final ResourceBorderTexture BORDERED_BACKGROUND_INVERSE = new ResourceBorderTexture("rosmontislib:textures/gui/background_inverse.png", 16, 16, 4, 4);
+    public static final ResourceBorderTexture BORDERED_BACKGROUND_BLUE = new ResourceBorderTexture("rosmontislib:textures/gui/bordered_background_blue.png", 195, 136, 4, 4);
+    public static final ResourceBorderTexture BUTTON_COMMON = new ResourceBorderTexture("rosmontislib:textures/gui/button.png", 32, 32, 2, 2);
+    public static final ResourceBorderTexture BAR = new ResourceBorderTexture("rosmontislib:textures/gui/button_common.png", 180, 20, 1, 1);
+    public static final ResourceBorderTexture SELECTED = new ResourceBorderTexture("rosmontislib:textures/gui/selected.png", 16, 16, 2, 2);
 
     @Configurable(tips = {"ldlib.gui.editor.tips.corner_size.0", "ldlib.gui.editor.tips.corner_size.1"}, collapse = false)
     public Size borderSize;
@@ -23,7 +23,7 @@ public class ResourceBorderTexture extends ResourceTexture {
     public Size imageSize;
 
     public ResourceBorderTexture() {
-        this("ldlib:textures/gui/bordered_background_blue.png", 195, 136, 4, 4);
+        this("rosmontislib:textures/gui/bordered_background_blue.png", 195, 136, 4, 4);
     }
 
     public ResourceBorderTexture(String imageLocation, int imageWidth, int imageHeight, int cornerWidth, int cornerHeight) {

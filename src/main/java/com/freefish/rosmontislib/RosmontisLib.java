@@ -1,10 +1,11 @@
 package com.freefish.rosmontislib;
 
+import com.freefish.rosmontislib.client.particle.advance.data.material.MaterialHandle;
 import com.freefish.rosmontislib.client.shader.ShaderHandle;
 import com.freefish.rosmontislib.compat.oculus.ForgeOculusHandle;
-import com.freefish.rosmontislib.event.CameraShakeEvent;
-import com.freefish.rosmontislib.event.CommonEvent;
-import com.freefish.rosmontislib.event.ServerNetwork;
+import com.freefish.rosmontislib.event.RLNetworking;
+import com.freefish.rosmontislib.event.listener.CameraShakeEvent;
+import com.freefish.rosmontislib.event.listener.CommonEvent;
 import com.freefish.rosmontislib.example.init.BlockEntityHandle;
 import com.freefish.rosmontislib.example.init.BlockHandle;
 import com.freefish.rosmontislib.example.init.ItemHandle;
@@ -16,10 +17,8 @@ import com.freefish.rosmontislib.sync.TypedPayloadRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -29,9 +28,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -42,14 +38,15 @@ public class RosmontisLib
 {
     public static final String MOD_ID = "rosmontislib";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static SimpleChannel NETWORK;
     public static final Random random = new Random();
     public static File location;
 
     public RosmontisLib()
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        getLDLibDir();
+        getRLLibDir();
+
+        //DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
         if(isDevEnv()){
             ItemHandle.ITEMS.register(bus);
@@ -69,12 +66,11 @@ public class RosmontisLib
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        event.enqueueWork(()->{
+            RLNetworking.init();
+        });
         TypedPayloadRegistries.init();
         TypedPayloadRegistries.postInit();
-        event.enqueueWork(()->{
-            ServerNetwork.initNetwork();
-        });
     }
 
     private void clientSetup(final FMLClientSetupEvent event)
@@ -84,26 +80,16 @@ public class RosmontisLib
             bus.addListener(ShaderHandle::registerShaders);
             ShaderHandle.init();
             DrawerHelper.init();
+            MaterialHandle.init();
             MinecraftForge.EVENT_BUS.register(CameraShakeEvent.INSTANCE);
         });
-    }
-
-    public static <MSG> void sendMSGToAll(MSG message) {
-        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            NETWORK.sendTo(message, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-        }
-    }
-
-    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
-        if (!(player instanceof FakePlayer))
-            NETWORK.sendTo(message, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static ResourceLocation location(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
 
-    public static File getLDLibDir() {
+    public static File getRLLibDir() {
         if (location == null) {
             location = new File(FMLPaths.GAMEDIR.get().toFile(), "rosmontislib");
             if (location.mkdir()) {

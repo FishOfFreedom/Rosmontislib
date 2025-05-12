@@ -92,7 +92,7 @@ public class UIProject implements IProject {
     @Nullable
     public static Supplier<WidgetGroup> loadUIFromFile(ResourceLocation location) {
         try {
-            var file = new File(RosmontisLib.getLDLibDir(), "assets/%s/projects/ui/%s.ui".formatted(location.getNamespace(), location.getPath()));
+            var file = new File(RosmontisLib.getRLLibDir(), "assets/%s/projects/ui/%s.ui".formatted(location.getNamespace(), location.getPath()));
             return loadUIFromTag(NbtIo.read(file));
         } catch (Exception e) {
             RosmontisLib.LOGGER.error("Failed to load ui project from file: {}", location, e);

@@ -54,7 +54,7 @@ import java.util.function.Function;
 @LDLRegister(name = "item_slot", group = "widget.container")
 @Accessors(chain = true)
 public class SlotWidget extends Widget implements IRecipeIngredientSlot, IConfigurableWidget {
-    public final static ResourceBorderTexture ITEM_SLOT_TEXTURE = new ResourceBorderTexture("ldlib:textures/gui/slot.png", 18, 18, 1, 1);
+    public final static ResourceBorderTexture ITEM_SLOT_TEXTURE = new ResourceBorderTexture("rosmontislib:textures/gui/slot.png", 18, 18, 1, 1);
 
     @Nullable
     protected static Slot HOVER_SLOT = null;

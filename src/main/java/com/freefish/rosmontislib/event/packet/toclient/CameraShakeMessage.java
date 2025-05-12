@@ -2,37 +2,36 @@ package com.freefish.rosmontislib.event.packet.toclient;
 
 import com.freefish.rosmontislib.client.ClientHandle;
 import com.freefish.rosmontislib.client.screeneffect.CameraShake;
+import com.freefish.rosmontislib.event.IHandlerContext;
+import com.freefish.rosmontislib.event.IPacket;
+import lombok.NoArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-public class CameraShakeMessage {
+@NoArgsConstructor
+public class CameraShakeMessage implements IPacket {
     private CameraShake cameraShake;
-
-    public CameraShakeMessage() {
-
-    }
 
     public CameraShakeMessage(CameraShake cameraShake) {
         this.cameraShake = cameraShake;
     }
 
-    public static void serialize(final CameraShakeMessage message, final FriendlyByteBuf buf) {
-        buf.writeFloat(message.cameraShake.getMagnitude());
-        buf.writeFloat(message.cameraShake.getRadius());
-        buf.writeVarInt(message.cameraShake.getDuration());
-        buf.writeVarInt(message.cameraShake.getFadeDuration());
-        Vec3 vec3 = message.cameraShake.getVec3();
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeFloat(cameraShake.getMagnitude());
+        buf.writeFloat(cameraShake.getRadius());
+        buf.writeVarInt(cameraShake.getDuration());
+        buf.writeVarInt(cameraShake.getFadeDuration());
+        Vec3 vec3 = cameraShake.getVec3();
         buf.writeFloat((float) vec3.x);
         buf.writeFloat((float) vec3.y);
         buf.writeFloat((float) vec3.z);
     }
 
-    public static CameraShakeMessage deserialize(final FriendlyByteBuf buf) {
-        final CameraShakeMessage message = new CameraShakeMessage();
+    @Override
+    public void decode(FriendlyByteBuf buf) {
         float ma = buf.readFloat();
         float ra = buf.readFloat();
         int du = buf.readVarInt();
@@ -41,18 +40,14 @@ public class CameraShakeMessage {
         float y = buf.readFloat();
         float z = buf.readFloat();
 
-        message.cameraShake = new CameraShake(new Vec3(x,y,z),ra,ma,du,fa);
-        return message;
+        cameraShake = new CameraShake(new Vec3(x,y,z),ra,ma,du,fa);
     }
 
-    public static class Handler implements BiConsumer<CameraShakeMessage, Supplier<NetworkEvent.Context>> {
-        @Override
-        public void accept(final CameraShakeMessage message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            final NetworkEvent.Context context = contextSupplier.get();
-            context.enqueueWork(() -> {
-                ClientHandle.INSTANCE.getCameraShakeList().add(message.cameraShake);
-            });
-            context.setPacketHandled(true);
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void execute(IHandlerContext handler) {
+        if (handler.isClient()) {
+            ClientHandle.INSTANCE.getCameraShakeList().add(cameraShake);
         }
     }
 }

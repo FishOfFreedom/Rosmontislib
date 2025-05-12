@@ -1,23 +1,21 @@
 package com.freefish.rosmontislib.event.packet.toclient;
 
+import com.freefish.rosmontislib.event.IHandlerContext;
+import com.freefish.rosmontislib.event.IPacket;
 import com.freefish.rosmontislib.gui.factory.UIFactory;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import lombok.NoArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-public class GUIOpenMessage {
+@NoArgsConstructor
+public class GUIOpenMessage implements IPacket {
     private ResourceLocation uiFactoryId;
     private FriendlyByteBuf serializedHolder;
     private int windowId;
-
-    public GUIOpenMessage() {
-
-    }
 
     public GUIOpenMessage(ResourceLocation uiFactoryId, FriendlyByteBuf serializedHolder, int windowId) {
         this.uiFactoryId = uiFactoryId;
@@ -25,37 +23,34 @@ public class GUIOpenMessage {
         this.windowId = windowId;
     }
 
-    public static void serialize(final GUIOpenMessage message, final FriendlyByteBuf buf) {
-        buf.writeVarInt(message.serializedHolder.readableBytes());
-        buf.writeBytes(message.serializedHolder);
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeVarInt(serializedHolder.readableBytes());
+        buf.writeBytes(serializedHolder);
 
-        buf.writeResourceLocation(message.uiFactoryId);
-        buf.writeVarInt(message.windowId);
+        buf.writeResourceLocation(uiFactoryId);
+        buf.writeVarInt(windowId);
     }
 
-    public static GUIOpenMessage deserialize(final FriendlyByteBuf buf) {
-        final GUIOpenMessage message = new GUIOpenMessage();
+    @Override
+    public void decode(FriendlyByteBuf buf) {
         ByteBuf directSliceBuffer = buf.readBytes(buf.readVarInt());
         ByteBuf copiedDataBuffer = Unpooled.copiedBuffer(directSliceBuffer);
         directSliceBuffer.release();
-        message.serializedHolder = new FriendlyByteBuf(copiedDataBuffer);
+        this.serializedHolder = new FriendlyByteBuf(copiedDataBuffer);
 
-        message.uiFactoryId = buf.readResourceLocation();
-        message.windowId = buf.readVarInt();
-        return message;
+        this.uiFactoryId = buf.readResourceLocation();
+        this.windowId = buf.readVarInt();
     }
 
-    public static class Handler implements BiConsumer<GUIOpenMessage, Supplier<NetworkEvent.Context>> {
-        @Override
-        public void accept(final GUIOpenMessage message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            final NetworkEvent.Context context = contextSupplier.get();
-            context.enqueueWork(() -> {
-                UIFactory<?> uiFactory = UIFactory.FACTORIES.get(message.uiFactoryId);
-                if (uiFactory != null) {
-                    uiFactory.initClientUI(message.serializedHolder, message.windowId);
-                }
-            });
-            context.setPacketHandled(true);
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void execute(IHandlerContext handler) {
+        if (handler.isClient()) {
+            UIFactory<?> uiFactory = UIFactory.FACTORIES.get(uiFactoryId);
+            if (uiFactory != null) {
+                uiFactory.initClientUI(serializedHolder, windowId);
+            }
         }
     }
 }

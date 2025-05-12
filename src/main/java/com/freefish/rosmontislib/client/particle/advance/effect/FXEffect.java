@@ -5,7 +5,6 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public abstract class FXEffect implements IFXEffect {
-
     @Override
     public Level getLevel() {
         return level;

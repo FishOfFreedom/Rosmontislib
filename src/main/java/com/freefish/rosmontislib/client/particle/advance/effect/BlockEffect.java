@@ -1,24 +1,15 @@
 package com.freefish.rosmontislib.client.particle.advance.effect;
 
 import com.freefish.rosmontislib.client.particle.advance.base.IFXObject;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author KilaBash
  * @date 2023/6/5
  * @implNote EntityEffect
  */
-@OnlyIn(Dist.CLIENT)
 public class BlockEffect extends FXEffect {
     public final Vec3 pos;
 

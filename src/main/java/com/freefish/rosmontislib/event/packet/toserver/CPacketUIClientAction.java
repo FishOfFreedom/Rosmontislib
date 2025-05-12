@@ -1,62 +1,50 @@
 package com.freefish.rosmontislib.event.packet.toserver;
 
+import com.freefish.rosmontislib.event.IHandlerContext;
+import com.freefish.rosmontislib.event.IPacket;
 import com.freefish.rosmontislib.gui.modular.ModularUIContainer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import lombok.NoArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.network.NetworkEvent;
 
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-public class CPacketUIClientAction {
+@NoArgsConstructor
+public class CPacketUIClientAction implements IPacket {
 
     public int windowId;
     public FriendlyByteBuf updateData;
-
-    public CPacketUIClientAction() {
-    }
 
     public CPacketUIClientAction(int windowId, FriendlyByteBuf updateData) {
         this.windowId = windowId;
         this.updateData = updateData;
     }
 
-    public static void serialize(final CPacketUIClientAction message, final FriendlyByteBuf buf) {
-        buf.writeVarInt(message.updateData.readableBytes());
-        buf.writeBytes(message.updateData);
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeVarInt(updateData.readableBytes());
+        buf.writeBytes(updateData);
 
-        buf.writeVarInt(message.windowId);
+        buf.writeVarInt(windowId);
     }
 
-    public static CPacketUIClientAction deserialize(final FriendlyByteBuf buf) {
-        CPacketUIClientAction message = new CPacketUIClientAction();
+    @Override
+    public void decode(FriendlyByteBuf buf) {
         ByteBuf directSliceBuffer = buf.readBytes(buf.readVarInt());
         ByteBuf copiedDataBuffer = Unpooled.copiedBuffer(directSliceBuffer);
-
         directSliceBuffer.release();
-        message.updateData = new FriendlyByteBuf(copiedDataBuffer);
+        this.updateData = new FriendlyByteBuf(copiedDataBuffer);
 
-        message.windowId = buf.readVarInt();
-        return message;
+        this.windowId = buf.readVarInt();
     }
 
-    public static class Handler implements BiConsumer<CPacketUIClientAction, Supplier<NetworkEvent.Context>> {
-        @Override
-        public void accept(final CPacketUIClientAction message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            final NetworkEvent.Context context = contextSupplier.get();
-            final ServerPlayer player = context.getSender();
-            context.enqueueWork(() -> {
-                if(player!=null){
-                    AbstractContainerMenu openContainer = player.containerMenu;
-                    if (openContainer instanceof ModularUIContainer) {
-                        ((ModularUIContainer)openContainer).handleClientAction(message);
-                    }
-                }
-            });
-            context.setPacketHandled(true);
+    @Override
+    public void execute(IHandlerContext handler) {
+        if (handler.getPlayer() != null) {
+            AbstractContainerMenu openContainer = handler.getPlayer().containerMenu;
+            if (openContainer instanceof ModularUIContainer) {
+                ((ModularUIContainer)openContainer).handleClientAction(this);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.freefish.rosmontislib.gui.factory;
 
-import com.freefish.rosmontislib.RosmontisLib;
+import com.freefish.rosmontislib.event.RLNetworking;
 import com.freefish.rosmontislib.event.packet.toclient.GUIOpenMessage;
 import com.freefish.rosmontislib.gui.modular.ModularUI;
 import com.freefish.rosmontislib.gui.modular.ModularUIContainer;
@@ -49,7 +49,7 @@ public abstract class UIFactory<T> {
         //accumulate all initial updates of widgets in open packet
         uiTemplate.mainGroup.writeInitialData(serializedHolder);
 
-        RosmontisLib.sendToPlayer(new GUIOpenMessage(uiFactoryId, serializedHolder, currentWindowId), player);
+        RLNetworking.NETWORK.sendToPlayer(new GUIOpenMessage(uiFactoryId, serializedHolder, currentWindowId), player);
 
         ((ServerPlayerAccessor) player).callInitMenu(container);
         player.containerMenu = container;

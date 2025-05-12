@@ -15,10 +15,10 @@ import java.util.function.BiFunction;
 public class Icons {
     private static final BiFunction<String, String, ResourceTexture> CACHE = Util.memoize((modID, name) -> new ResourceTexture("%s:textures/gui/icon/%s.png".formatted(modID, name)));
     private static final Map<String, ResourceTexture> FILE_ICONS = new HashMap<>();
-    public static ResourceTexture LEFT = new ResourceTexture("ldlib:textures/gui/left.png");
-    public static ResourceTexture UP = new ResourceTexture("ldlib:textures/gui/up.png");
-    public static ResourceTexture DOWN = new ResourceTexture("ldlib:textures/gui/down.png");
-    public static ResourceTexture RIGHT = new ResourceTexture("ldlib:textures/gui/right.png");
+    public static ResourceTexture LEFT = new ResourceTexture("rosmontislib:textures/gui/left.png");
+    public static ResourceTexture UP = new ResourceTexture("rosmontislib:textures/gui/up.png");
+    public static ResourceTexture DOWN = new ResourceTexture("rosmontislib:textures/gui/down.png");
+    public static ResourceTexture RIGHT = new ResourceTexture("rosmontislib:textures/gui/right.png");
     public static ResourceTexture ROTATION = icon("rotation");
     public static ResourceTexture REPLAY = icon("replay");
     public static ResourceTexture PLAY_PAUSE = icon("play_pause");
@@ -85,7 +85,7 @@ public class Icons {
     }
 
     public static ResourceTexture icon(String name) {
-        return icon("ldlib", name);
+        return icon("rosmontislib", name);
     }
 
     public static ResourceTexture icon(String modId, String name) {

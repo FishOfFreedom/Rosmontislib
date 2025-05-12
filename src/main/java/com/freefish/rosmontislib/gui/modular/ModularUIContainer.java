@@ -1,6 +1,6 @@
 package com.freefish.rosmontislib.gui.modular;
 
-import com.freefish.rosmontislib.RosmontisLib;
+import com.freefish.rosmontislib.event.RLNetworking;
 import com.freefish.rosmontislib.event.packet.toclient.SPacketUIWidgetUpdate;
 import com.freefish.rosmontislib.event.packet.toserver.CPacketUIClientAction;
 import com.freefish.rosmontislib.gui.util.PerTickIntCounter;
@@ -252,7 +252,7 @@ public class ModularUIContainer extends AbstractContainerMenu implements WidgetU
         packetBuffer.writeVarInt(updateId);
         payloadWriter.accept(packetBuffer);
         if (modularUI.entityPlayer instanceof AbstractClientPlayer) {
-            RosmontisLib.NETWORK.sendToServer(new CPacketUIClientAction(containerId, packetBuffer));
+            RLNetworking.NETWORK.sendToServer(new CPacketUIClientAction(containerId, packetBuffer));
         }
     }
 
@@ -263,7 +263,7 @@ public class ModularUIContainer extends AbstractContainerMenu implements WidgetU
         payloadWriter.accept(packetBuffer);
         if (modularUI.entityPlayer instanceof ServerPlayer) {
             SPacketUIWidgetUpdate widgetUpdate = new SPacketUIWidgetUpdate(containerId, packetBuffer);
-            RosmontisLib.sendToPlayer(widgetUpdate, (ServerPlayer) modularUI.entityPlayer);
+            RLNetworking.NETWORK.sendToPlayer(widgetUpdate, (ServerPlayer) modularUI.entityPlayer);
         }
     }
 

@@ -30,8 +30,8 @@ public class ProgressTexture extends TransformTexture {
     private boolean demo;
 
     public ProgressTexture() {
-        this(new ResourceTexture("ldlib:textures/gui/progress_bar_fuel.png").getSubTexture(0, 0, 1, 0.5),
-                new ResourceTexture("ldlib:textures/gui/progress_bar_fuel.png").getSubTexture(0, 0.5, 1, 0.5));
+        this(new ResourceTexture("rosmontislib:textures/gui/progress_bar_fuel.png").getSubTexture(0, 0, 1, 0.5),
+                new ResourceTexture("rosmontislib:textures/gui/progress_bar_fuel.png").getSubTexture(0, 0.5, 1, 0.5));
         fillDirection = FillDirection.DOWN_TO_UP;
         demo = true;
     }

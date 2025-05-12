@@ -1,11 +1,8 @@
 package com.freefish.rosmontislib.client.particle.advance.effect;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-@OnlyIn(Dist.CLIENT)
 public interface IFXEffect extends IEffect {
     /**
      * get all emitters included in this effect.

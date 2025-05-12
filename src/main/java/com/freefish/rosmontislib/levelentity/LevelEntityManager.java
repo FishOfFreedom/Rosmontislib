@@ -1,6 +1,7 @@
 package com.freefish.rosmontislib.levelentity;
 
 import com.freefish.rosmontislib.RosmontisLib;
+import com.freefish.rosmontislib.event.RLNetworking;
 import com.freefish.rosmontislib.event.packet.toclient.CRClientLevelEntityMessage;
 import net.minecraft.world.level.Level;
 
@@ -14,7 +15,7 @@ public abstract class LevelEntityManager {
             T levelEntity = levelEntityType.createLevelEntity();
             levelEntity.setLevel(level);
             addLevelEntity(levelEntity);
-            RosmontisLib.sendMSGToAll(new CRClientLevelEntityMessage(true,levelEntity));
+            RLNetworking.NETWORK.sendToAll(new CRClientLevelEntityMessage(true,levelEntity));
             return levelEntity;
         }
     }

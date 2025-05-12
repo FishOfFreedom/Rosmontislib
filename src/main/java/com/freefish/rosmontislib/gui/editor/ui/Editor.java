@@ -59,7 +59,7 @@ public abstract class Editor extends WidgetGroup implements ILDLRegister {
     protected HistoryItem currentHistory;
 
     public Editor(String modID) {
-        this(new File(RosmontisLib.getLDLibDir(), "assets/" + modID));
+        this(new File(RosmontisLib.getRLLibDir(), "assets/" + modID));
         if (RosmontisLib.isClient()) {
             if (!this.workSpace.exists() && !this.workSpace.mkdirs()) {
                 RosmontisLib.LOGGER.error("Failed to create work space for mod: " + modID);

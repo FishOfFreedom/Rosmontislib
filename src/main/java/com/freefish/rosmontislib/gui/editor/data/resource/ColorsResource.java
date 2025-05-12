@@ -32,7 +32,7 @@ public class ColorsResource extends Resource<Integer> {
     public final static String RESOURCE_NAME = "ldlib.gui.editor.group.colors";
 
     public ColorsResource() {
-        super(new File(RosmontisLib.getLDLibDir(), "assets/resources/colors"));
+        super(new File(RosmontisLib.getRLLibDir(), "assets/resources/colors"));
     }
 
     @Override

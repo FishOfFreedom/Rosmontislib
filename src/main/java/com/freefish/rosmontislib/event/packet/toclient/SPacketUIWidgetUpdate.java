@@ -1,60 +1,53 @@
 package com.freefish.rosmontislib.event.packet.toclient;
 
+import com.freefish.rosmontislib.event.IHandlerContext;
+import com.freefish.rosmontislib.event.IPacket;
 import com.freefish.rosmontislib.gui.modular.ModularUIGuiContainer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import lombok.NoArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-public class SPacketUIWidgetUpdate {
-
+@NoArgsConstructor
+public class SPacketUIWidgetUpdate implements IPacket {
     public int windowId;
-
     public FriendlyByteBuf updateData;
-
-    public SPacketUIWidgetUpdate() {
-    }
 
     public SPacketUIWidgetUpdate(int windowId, FriendlyByteBuf updateData) {
         this.windowId = windowId;
         this.updateData = updateData;
     }
 
-    public static void serialize(final SPacketUIWidgetUpdate message, final FriendlyByteBuf buf) {
-        buf.writeVarInt(message.updateData.readableBytes());
-        buf.writeBytes(message.updateData);
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeVarInt(updateData.readableBytes());
+        buf.writeBytes(updateData);
 
-        buf.writeVarInt(message.windowId);
+        buf.writeVarInt(windowId);
     }
 
-    public static SPacketUIWidgetUpdate deserialize(final FriendlyByteBuf buf) {
-        SPacketUIWidgetUpdate message = new SPacketUIWidgetUpdate();
-
+    @Override
+    public void decode(FriendlyByteBuf buf) {
         ByteBuf directSliceBuffer = buf.readBytes(buf.readVarInt());
         ByteBuf copiedDataBuffer = Unpooled.copiedBuffer(directSliceBuffer);
         directSliceBuffer.release();
-        message.updateData = new FriendlyByteBuf(copiedDataBuffer);
+        updateData = new FriendlyByteBuf(copiedDataBuffer);
 
-        message.windowId = buf.readVarInt();
-        return message;
+        windowId = buf.readVarInt();
     }
 
-    public static class Handler implements BiConsumer<SPacketUIWidgetUpdate, Supplier<NetworkEvent.Context>> {
-        @Override
-        public void accept(final SPacketUIWidgetUpdate message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            final NetworkEvent.Context context = contextSupplier.get();
-            context.enqueueWork(() -> {
-                Screen currentScreen = Minecraft.getInstance().screen;
-                if (currentScreen instanceof ModularUIGuiContainer rContainerScreen) {
-                    rContainerScreen.handleWidgetUpdate(message);
-                }
-            });
-            context.setPacketHandled(true);
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void execute(IHandlerContext handler) {
+        if (handler.isClient()) {
+            Screen currentScreen = Minecraft.getInstance().screen;
+            if (currentScreen instanceof ModularUIGuiContainer rContainerScreen) {
+                rContainerScreen.handleWidgetUpdate(this);
+            }
         }
     }
 }

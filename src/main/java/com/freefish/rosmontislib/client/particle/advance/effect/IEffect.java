@@ -2,10 +2,7 @@ package com.freefish.rosmontislib.client.particle.advance.effect;
 
 import com.freefish.rosmontislib.client.particle.advance.base.IFXObject;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public interface IEffect {
 
     Level getLevel();

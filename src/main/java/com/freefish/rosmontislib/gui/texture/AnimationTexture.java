@@ -70,7 +70,7 @@ public class AnimationTexture extends TransformTexture {
     private long lastTick;
 
     public AnimationTexture() {
-        this("ldlib:textures/gui/particles.png");
+        this("rosmontislib:textures/gui/particles.png");
         setCellSize(8).setAnimation(32,  44).setAnimation(1);
     }
 

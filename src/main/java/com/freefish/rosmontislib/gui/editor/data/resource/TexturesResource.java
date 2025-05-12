@@ -29,7 +29,7 @@ public class TexturesResource extends Resource<IGuiTexture> {
     public final static String RESOURCE_NAME = "ldlib.gui.editor.group.textures";
 
     public TexturesResource() {
-        super(new File(RosmontisLib.getLDLibDir(), "assets/resources/textures"));
+        super(new File(RosmontisLib.getRLLibDir(), "assets/resources/textures"));
         addBuiltinResource("empty", IGuiTexture.EMPTY);
     }
 

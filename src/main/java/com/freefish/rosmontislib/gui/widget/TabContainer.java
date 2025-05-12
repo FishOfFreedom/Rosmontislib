@@ -22,7 +22,7 @@ import java.util.function.BiConsumer;
 
 @LDLRegister(name = "tab_group", group = "widget.group")
 public class TabContainer extends WidgetGroup {
-    public static final ResourceTexture TABS_LEFT = new ResourceTexture("ldlib:textures/gui/tabs_left.png");
+    public static final ResourceTexture TABS_LEFT = new ResourceTexture("rosmontislib:textures/gui/tabs_left.png");
 
     public final BiMap<TabButton, WidgetGroup> tabs = HashBiMap.create();
     public final WidgetGroup buttonGroup;

@@ -1,6 +1,6 @@
 package com.freefish.rosmontislib.levelentity;
 
-import com.freefish.rosmontislib.RosmontisLib;
+import com.freefish.rosmontislib.event.RLNetworking;
 import com.freefish.rosmontislib.event.packet.toclient.SetLevelEntityDataMessage;
 import com.freefish.rosmontislib.levelentity.sync.SynchedLevelEntityData;
 import lombok.Getter;
@@ -44,7 +44,7 @@ public class LevelEntity {
         if(levelEntityData.isDirty()){
             List<SynchedLevelEntityData.DataValue<?>> list = levelEntityData.packDirty();
             if (list != null) {
-                RosmontisLib.sendMSGToAll(new SetLevelEntityDataMessage(list,id));
+                RLNetworking.NETWORK.sendToAll(new SetLevelEntityDataMessage(list,id));
             }
         }
     }
