@@ -10,6 +10,7 @@
     "accessor.SlotAccessor",
     "LivingEntityMixin",
     "LevelMixin",
+    "PlayerListMixin",
     "ServerLevelMixin"
   ],
   "client": [

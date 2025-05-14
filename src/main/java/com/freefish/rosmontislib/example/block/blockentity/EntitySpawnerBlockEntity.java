@@ -125,7 +125,6 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements MenuProvide
     }
 
     private void onAllEntitiesDead() {
-        System.out.println("all");
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.freefish.rosmontislib.levelentity;
 
-import com.freefish.rosmontislib.RosmontisLib;
 import com.freefish.rosmontislib.event.RLNetworking;
 import com.freefish.rosmontislib.event.packet.toclient.CRClientLevelEntityMessage;
 import net.minecraft.world.level.Level;
@@ -13,7 +12,6 @@ public abstract class LevelEntityManager {
             return null;
         else {
             T levelEntity = levelEntityType.createLevelEntity();
-            levelEntity.setLevel(level);
             addLevelEntity(levelEntity);
             RLNetworking.NETWORK.sendToAll(new CRClientLevelEntityMessage(true,levelEntity));
             return levelEntity;
@@ -29,6 +27,8 @@ public abstract class LevelEntityManager {
     public abstract void tick();
 
     public abstract List<LevelEntity> levelEntityList();
+
+    public abstract  <T extends LevelEntity> T getInstanceLevelEntity (InstanceLevelEntityType<T> instanceLevelEntityType);
 
     public static LevelEntityManager getInstance(Level level){
         return ((ILevelEntityManager) level).getLevelEntityManager();

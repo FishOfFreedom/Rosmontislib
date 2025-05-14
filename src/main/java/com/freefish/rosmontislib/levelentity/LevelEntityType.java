@@ -1,6 +1,5 @@
 package com.freefish.rosmontislib.levelentity;
 
-import com.freefish.rosmontislib.RosmontisLib;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -49,11 +48,12 @@ public class LevelEntityType<T extends LevelEntity> {
 
     public static LevelEntity loadEntityRecursive(final CompoundTag compoundTag, final Level pLevel) {
         String id = compoundTag.getString("id");
-        ResourceLocation resourceLocation = new ResourceLocation(RosmontisLib.MOD_ID, id);
+        String[] parts = id.split(":");
+        ResourceLocation resourceLocation = new ResourceLocation(parts[0], parts[1]);
 
         LevelEntityType<?> levelEntityType = LevelEntityHandle.getLevelEntityType(resourceLocation);
         LevelEntity levelEntity = levelEntityType.createLevelEntity();
-        levelEntity.setLevel(pLevel);
+        levelEntity.load(compoundTag);
         return levelEntity;
     }
 }

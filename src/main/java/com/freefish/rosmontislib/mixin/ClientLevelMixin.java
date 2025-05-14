@@ -24,7 +24,7 @@ public abstract class ClientLevelMixin {
     private void initLevelEntity(ClientPacketListener pConnection, ClientLevel.ClientLevelData pClientLevelData, ResourceKey<Level> pDimension,
                                  Holder<DimensionType> pDimensionType, int pViewDistance, int pServerSimulationDistance,
                                  Supplier<ProfilerFiller> pProfiler, LevelRenderer pLevelRenderer, boolean pIsDebug, long pBiomeZoomSeed, CallbackInfo ci) {
-        ((ILevelEntityManager) this).setLevelEntityManager(new LevelEntityManagerClient());
+        ((ILevelEntityManager) this).setLevelEntityManager(new LevelEntityManagerClient((Level)(Object)this));
     }
 
     @Inject(method = "tickEntities", at = @At("RETURN"))

@@ -26,6 +26,10 @@ public class LevelEntity {
     @Setter
     public Level level;
 
+    @Getter
+    @Setter
+    private boolean isInstance = false;
+
     public SynchedLevelEntityData levelEntityData;
 
     public LevelEntity(LevelEntityType<?> levelEntityType) {
@@ -70,7 +74,10 @@ public class LevelEntity {
     }
 
     public boolean save(CompoundTag compoundTag) {
-        compoundTag.putString("id",LevelEntityHandle.getKey(levelEntityType).getPath());
+        compoundTag.putString("id",LevelEntityHandle.getKey(getLevelEntityType()).toString());
         return true;
+    }
+
+    public void load(CompoundTag compoundTag) {
     }
 }

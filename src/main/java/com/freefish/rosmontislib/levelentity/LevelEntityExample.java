@@ -20,7 +20,6 @@ public class LevelEntityExample extends LevelEntity {
         if(tickCount>=100){
             setRemove(true);
         }
-        System.out.println(this.levelEntityData.get(TEST));
 
         super.tick();
     }

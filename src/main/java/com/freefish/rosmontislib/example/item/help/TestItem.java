@@ -3,6 +3,9 @@ package com.freefish.rosmontislib.example.item.help;
 import com.freefish.rosmontislib.client.RLClientUseUtils;
 import com.freefish.rosmontislib.commom.init.DamageSourceHandle;
 import com.freefish.rosmontislib.gui.factory.UIEditorFactory;
+import com.freefish.rosmontislib.levelentity.LevelEntityExample1;
+import com.freefish.rosmontislib.levelentity.LevelEntityHandle;
+import com.freefish.rosmontislib.levelentity.LevelEntityManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -54,8 +57,15 @@ public class TestItem extends Item {
 
         if(mode==Mode.GUI &&!level.isClientSide){
 
-        }else if(mode==Mode.DIALOGUE){
-
+        }
+        if(mode==Mode.DIALOGUE){
+            LevelEntityManager instance = LevelEntityManager.getInstance(level);
+            if(instance!=null){
+                LevelEntityExample1 instanceLevelEntity = instance.getInstanceLevelEntity(LevelEntityHandle.EXAMPLE_INSTANCE);
+                if(instanceLevelEntity!=null){
+                    instanceLevelEntity.testint++;
+                }
+            }
         }
         
         return super.use(level, player, pUsedHand);

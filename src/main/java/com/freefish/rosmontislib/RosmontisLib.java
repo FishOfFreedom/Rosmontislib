@@ -13,6 +13,7 @@ import com.freefish.rosmontislib.example.init.MenuHandle;
 import com.freefish.rosmontislib.gui.editor.runtime.AnnotationDetector;
 import com.freefish.rosmontislib.gui.factory.UIFactory;
 import com.freefish.rosmontislib.gui.util.DrawerHelper;
+import com.freefish.rosmontislib.levelentity.LevelEntityHandle;
 import com.freefish.rosmontislib.sync.TypedPayloadRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -69,6 +70,7 @@ public class RosmontisLib
         event.enqueueWork(()->{
             RLNetworking.init();
         });
+        LevelEntityHandle.init();
         TypedPayloadRegistries.init();
         TypedPayloadRegistries.postInit();
     }

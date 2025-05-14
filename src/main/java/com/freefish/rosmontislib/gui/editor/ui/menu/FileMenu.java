@@ -144,7 +144,7 @@ public class FileMenu extends MenuTab {
     private void outputCode() {
         var resources = editor.getResourcePanel().getResources();
         if (resources != null) {
-            DialogWidget.showStringEditorDialog(editor, "1", "1", (s) -> true, s -> {System.out.println(s);});
+            //DialogWidget.showStringEditorDialog(editor, "1", "1", (s) -> true, s -> {System.out.println(s);});
         }
     }
 

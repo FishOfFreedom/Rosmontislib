@@ -26,13 +26,15 @@ import java.util.function.BooleanSupplier;
 
 @Mixin(value = ServerLevel.class)
 public abstract class ServerLevelMixin {
+
     @Inject(method = "<init>", at = @At("RETURN"))
     private void initLevelEntity(MinecraftServer pServer, Executor pDispatcher, LevelStorageSource.LevelStorageAccess pLevelStorageAccess,
                                  ServerLevelData pServerLevelData, ResourceKey<Level> pDimension, LevelStem pLevelStem,
                                  ChunkProgressListener pProgressListener, boolean pIsDebug, long pBiomeZoomSeed,
                                  List<CustomSpawner> pCustomSpawners, boolean pTickTime, RandomSequences pRandomSequences, CallbackInfo ci) {
-
-        ((ILevelEntityManager) this).setLevelEntityManager(new LevelEntityManagerServer((ServerLevel)(Object)this));
+        //if(pDimension.location().toString().equals("minecraft:overworld")) {
+            ((ILevelEntityManager) this).setLevelEntityManager(new LevelEntityManagerServer((ServerLevel) (Object) this));
+        //}
     }
 
     @Inject(method = "tick", at = @At("RETURN"))
@@ -47,7 +49,9 @@ public abstract class ServerLevelMixin {
     public void save(@Nullable ProgressListener pProgress, boolean pFlush, boolean pSkipSave, CallbackInfo ci) {
         if (!pSkipSave) {
             LevelEntityManagerServer levelEntityManager = (LevelEntityManagerServer) ((ILevelEntityManager) this).getLevelEntityManager();
-            levelEntityManager.serializeNBT();
+            if(levelEntityManager!=null) {
+                levelEntityManager.serializeNBT();
+            }
         }
     }
 }

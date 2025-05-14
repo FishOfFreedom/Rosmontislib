@@ -1,12 +1,17 @@
 package com.freefish.rosmontislib.levelentity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import net.minecraft.world.level.Level;
+
+import java.util.*;
 
 public class LevelEntityManagerClient extends LevelEntityManager{
     private List<LevelEntity> levelEntityList = new ArrayList<>();
+    private final Level level;
+    public final Map<InstanceLevelEntityType<?>,LevelEntity> instanceLevelEntityTypeLevelEntityMap = new HashMap<>();
+
+    public LevelEntityManagerClient(Level level) {
+        this.level = level;
+    }
 
     @Override
     public LevelEntity getEntityByID(int id) {
@@ -18,6 +23,7 @@ public class LevelEntityManagerClient extends LevelEntityManager{
 
     @Override
     public void addLevelEntity(LevelEntity levelEntity) {
+        levelEntity.setLevel(level);
         levelEntity.defineSynchedData();
         levelEntityList.add(levelEntity);
         levelEntity.onAddFromWorld();
@@ -40,5 +46,10 @@ public class LevelEntityManagerClient extends LevelEntityManager{
     @Override
     public List<LevelEntity> levelEntityList() {
         return levelEntityList;
+    }
+
+    @Override
+    public <T extends LevelEntity> T getInstanceLevelEntity(InstanceLevelEntityType<T> instanceLevelEntityType) {
+        return (T) instanceLevelEntityTypeLevelEntityMap.computeIfAbsent(instanceLevelEntityType,(instanceLevelEntityTypeMap -> null));
     }
 }
