@@ -6,6 +6,7 @@ import com.freefish.rosmontislib.levelentity.sync.SynchedLevelEntityData;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.level.Level;
 
@@ -72,6 +73,10 @@ public class LevelEntity {
     protected void defineSynchedData(){
 
     }
+
+    void writeSpawnData(FriendlyByteBuf buffer){};
+
+    void readSpawnData(FriendlyByteBuf additionalData){};
 
     public boolean save(CompoundTag compoundTag) {
         compoundTag.putString("id",LevelEntityHandle.getKey(getLevelEntityType()).toString());
