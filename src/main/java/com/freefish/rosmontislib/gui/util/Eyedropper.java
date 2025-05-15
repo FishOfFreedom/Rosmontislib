@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.gui.util;//package com.lowdragmc.lowdraglib.gui.util;
 //
 //import com.lowdragmc.lowdraglib.LDLib;

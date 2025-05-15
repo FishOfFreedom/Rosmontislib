@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.gui.editor.ui.sceneeditor.sceneobject;
 
 import com.mojang.blaze3d.vertex.PoseStack;
