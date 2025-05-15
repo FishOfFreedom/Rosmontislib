@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.utils;
 
 import com.freefish.rosmontislib.sync.IContentChangeAware;
@@ -10,11 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-/**
- * @author KilaBash
- * @date 2023/2/10
- * @implNote FluidStorage
- */
 public class FluidStorage implements IFluidStorage, IContentChangeAware, ITagSerializable<CompoundTag> {
     @Getter
     @Setter

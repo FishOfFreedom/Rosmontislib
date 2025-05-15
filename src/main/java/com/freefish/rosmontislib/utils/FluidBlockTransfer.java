@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.utils;
 
 import net.minecraft.core.BlockPos;
@@ -8,11 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * @author KilaBash
- * @date 2023/2/10
- * @implNote FluidBlockTransfer
- */
 public class FluidBlockTransfer implements IFluidTransfer {
     protected final LiquidBlock fluidBlock;
     protected final BlockState blockState;

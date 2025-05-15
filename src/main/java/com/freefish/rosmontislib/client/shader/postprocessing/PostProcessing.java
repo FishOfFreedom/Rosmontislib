@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.client.shader.postprocessing;
 
 import com.freefish.rosmontislib.RosmontisLib;

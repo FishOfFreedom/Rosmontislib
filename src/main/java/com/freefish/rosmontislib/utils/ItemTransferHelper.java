@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.utils;
 
 import net.minecraft.core.BlockPos;
@@ -13,11 +18,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-/**
- * @author KilaBash
- * @date 2023/2/10
- * @implNote ItemTransferHelper
- */
 public class ItemTransferHelper {
 
     public static IItemTransfer getItemTransfer(Level level, BlockPos pos, @Nullable Direction direction) {

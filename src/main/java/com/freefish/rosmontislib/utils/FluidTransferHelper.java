@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.utils;
 
 import com.google.common.base.Preconditions;
@@ -34,11 +39,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-/**
- * @author KilaBash
- * @date 2023/2/10
- * @implNote FluidTransferHelper
- */
 public class FluidTransferHelper {
 
     public static IFluidTransfer getFluidTransfer(Level level, BlockPos pos, @Nullable Direction direction) {

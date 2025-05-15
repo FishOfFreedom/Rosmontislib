@@ -2,8 +2,6 @@ package com.freefish.rosmontislib.client;
 
 import com.freefish.rosmontislib.client.screeneffect.CameraShake;
 import lombok.Getter;
-import lombok.Setter;
-import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
 import java.util.Iterator;

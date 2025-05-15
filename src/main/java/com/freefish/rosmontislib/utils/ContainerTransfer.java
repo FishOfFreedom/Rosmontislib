@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.utils;
 
 import lombok.Getter;
@@ -8,11 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-/**
- * @author KilaBash
- * @date 2023/2/10
- * @implNote InventoryItemTransfer
- */
 public class ContainerTransfer implements IItemTransfer {
     @Getter
     private final Container inv;

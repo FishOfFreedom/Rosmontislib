@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.utils;
 
 import net.minecraft.world.Container;
@@ -7,11 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-/**
- * @author KilaBash
- * @date 2023/2/10
- * @implNote IItemTransfer
- */
 public interface IItemTransfer {
     IItemTransfer EMPTY = new IItemTransfer() {
         @Override

@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * Copyright (c) 2023 KilaBash
+ */
+
 package com.freefish.rosmontislib.client.particle.advance.data.number.curve;
 
 import com.freefish.rosmontislib.client.particle.advance.data.number.NumberFunction;
